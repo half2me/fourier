@@ -9,7 +9,7 @@
   import {mapGetters} from 'vuex'
 
   export default {
-    name: 'HelloWorld',
+    name: 'SpotifyMe',
     computed: {
       ...mapGetters(['spotify']),
     },
