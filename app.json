@@ -1,4 +1,15 @@
 {
+  "name": "Fourier",
+  "description": "A music administration application.",
+  "website": "http://fourier.lfto.me",
+  "success_url": "/",
+  "addons": [],
+  "env": {
+    "NODE_ENV": "production"
+  },
+  "scripts": {
+    "postdeploy": "npm run build"
+  },
   "buildpacks": [
     {
       "url": "heroku/nodejs"
