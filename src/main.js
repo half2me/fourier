@@ -3,8 +3,13 @@ import App from './App.vue'
 import store from './store'
 import router from './router'
 import Buefy from 'buefy'
+import AsyncComputed from 'vue-async-computed'
+import '@fortawesome/fontawesome-free/css/all.css'
 
-Vue.use(Buefy);
+Vue.use(AsyncComputed);
+Vue.use(Buefy, {
+  defaultIconPack: "fas"
+});
 
 Vue.config.productionTip = false;
 
