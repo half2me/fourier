@@ -23,7 +23,7 @@ export default new Router({
       component: AppleMusic,
     },
     {
-      path: '/auth-callback',
+      path: '/spotify/auth-callback',
       name: 'authCallback',
       component: () => import(/* webpackChunkName: "callback" */ './views/AuthCallback')
     },

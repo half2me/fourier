@@ -25,7 +25,7 @@ export const requestAccessToken = () => {
   const $queryParams = {
     client_id: clientId,
     response_type: 'token',
-    redirect_uri: window.location.origin + '/auth-callback',
+    redirect_uri: window.location.origin + '/spotify/auth-callback',
     scope: scopes.join(' '),
     show_dialog: 'false',
     //state: '',
