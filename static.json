@@ -1,8 +1,8 @@
 {
   "root": "dist/",
   "routes": {
-    "/": "dist/index.html",
-    "/**": "dist/index.html"
+    "/assets/*": "/assets/",
+    "/**": "index.html"
   },
   "headers": {
     "/": {
