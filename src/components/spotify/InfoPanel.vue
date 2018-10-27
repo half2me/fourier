@@ -14,7 +14,6 @@
 </template>
 
 <script>
-  import {requestAccessToken} from '@/spotify'
   import {mapGetters} from 'vuex'
 
   export default {
@@ -28,12 +27,12 @@
     asyncComputed: {
       audioAnalysis() {
         if (this.track) {
-          return this.spotify.getAudioAnalysisForTrack(this.track.track.id).catch(e => {if (e.status === 401) {requestAccessToken()}})
+          return this.spotify.getAudioAnalysisForTrack(this.track.track.id)
         }
       },
       audioFeatures() {
         if (this.track) {
-          return this.spotify.getAudioFeaturesForTrack(this.track.track.id).catch(e => {if (e.status === 401) {requestAccessToken()}})
+          return this.spotify.getAudioFeaturesForTrack(this.track.track.id)
         }
       },
     },

@@ -2,7 +2,10 @@
   #app
     nav.navbar.is-primary(aria-label='main-navigation')
       .navbar-brand
-        router-link(to="/").navbar-item Spotify
+        router-link(:to="{name: 'spotify'}" :class="{'is-active': $route.name === 'spotify'}").navbar-item
+          b-icon(pack="fab" icon="spotify")
+        router-link(:to="{name: 'apple-music'}" :class="{'is-active': $route.name === 'apple'}").navbar-item
+          b-icon(pack="fab" icon="apple")
     router-view
 </template>
 

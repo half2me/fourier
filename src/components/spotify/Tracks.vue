@@ -11,7 +11,6 @@
 </template>
 
 <script>
-  import {requestAccessToken} from '@/spotify'
   import {mapGetters} from 'vuex'
 
   export default {
@@ -39,21 +38,9 @@
       tracks: {
         get() {
           return this.playlist ?
-            this.spotify.getPlaylistTracks(this.playlist.id)
-              .catch(e => {
-                if (e.status === 401) {
-                  requestAccessToken()
-                }
-              })
-              .then(r => r.items)
+            this.spotify.getPlaylistTracks(this.playlist.id).then(r => r.items)
             :
-            this.spotify.getMySavedTracks()
-              .catch(e => {
-                if (e.status === 401) {
-                  requestAccessToken()
-                }
-              })
-              .then(r => r.items);
+            this.spotify.getMySavedTracks().then(r => r.items);
         },
         default: [],
       },

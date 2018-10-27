@@ -9,9 +9,9 @@
 </template>
 
 <script>
-  import Playlists from '@/components/Playlists'
-  import Tracks from '@/components/Tracks'
-  import InfoPanel from '@/components/InfoPanel'
+  import Playlists from '@/components/spotify/Playlists'
+  import Tracks from '@/components/spotify/Tracks'
+  import InfoPanel from '@/components/spotify/InfoPanel'
   import {mapGetters} from 'vuex'
   import {requestAccessToken} from '@/spotify'
 
