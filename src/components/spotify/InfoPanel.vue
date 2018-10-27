@@ -7,7 +7,7 @@
     p Artist: {{ track.track.artists.map(a => a.name).join(', ') }}
     p Album: {{ track.track.album.name }}
     p Duration: {{ track.track.duration_ms }} ms
-    b-taglist-attached
+    b-taglist.attached
       b-tag(type="is-dark") popularity
       b-tag(type="is-primary") {{ track.track.popularity }}
       b-tag(v-show="track.track.explicit" type="is-warning") explicit

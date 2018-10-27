@@ -37,10 +37,11 @@
     asyncComputed: {
       tracks: {
         get() {
-          return this.playlist ?
-            this.spotify.getPlaylistTracks(this.playlist.id).then(r => r.items)
-            :
-            this.spotify.getMySavedTracks().then(r => r.items);
+          if (this.playlist?.id) {
+            return this.spotify.getPlaylistTracks(this.playlist.id).then(r => r.items)
+          } else {
+            return this.spotify.getMySavedTracks().then(r => r.items);
+          }
         },
         default: [],
       },
