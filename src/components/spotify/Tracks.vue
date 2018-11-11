@@ -6,7 +6,7 @@
       template(slot-scope="{row}")
         b-table-column(:width="20")
           b-tooltip.is-slow(:label="row.saved ? 'Remove from my Library' : 'Add to my Library'" animated size="is-small")
-            a(@click.prevent="toggleSaved(row.track.id)")
+            a(@click.prevent="toggleSaved(row)")
               b-icon(:icon="row.saved ? 'check' : 'plus'" size="is-small")
         b-table-column(field="track.name" label="Name")
           a {{ row.track.name }}
@@ -34,6 +34,7 @@
     data() {
       return {
         search: '',
+        bump: 0,
       }
     },
     asyncComputed: {
@@ -80,8 +81,12 @@
       },
     },
     methods: {
-      async toggleSaved(trackId) {
-        console.log(trackId);
+      async toggleSaved(track) {
+        if (track.saved) {
+          await this.spotify.removeFromMySavedTracks([track.track.id]).then(() => track.saved = false);
+        } else {
+          await this.spotify.addToMySavedTracks([track.track.id]).then(() => track.saved = true);
+        }
       },
     },
   }
