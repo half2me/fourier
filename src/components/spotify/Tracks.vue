@@ -5,7 +5,8 @@
     b-table(:data="tracksWithInfo" narrowed selectable :selected.sync="selectedTrack")
       template(slot-scope="{row}")
         b-table-column(:width="20")
-          b-icon(:icon="row.saved ? 'check' : 'plus'" size="is-small")
+          a(@click.prevent="toggleSaved(row.track.id)")
+            b-icon(:icon="row.saved ? 'check' : 'plus'" size="is-small")
         b-table-column(field="track.name" label="Name")
           a {{ row.track.name }}
 </template>
@@ -70,6 +71,10 @@
         },
       },
     },
-    methods: {},
+    methods: {
+      async toggleSaved(trackId) {
+        console.log(trackId);
+      },
+    },
   }
 </script>
