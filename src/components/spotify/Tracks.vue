@@ -38,7 +38,7 @@
       tracks: {
         get() {
           if (this.playlist?.id) {
-            return this.spotify.getPlaylistTracks(this.playlist.id).then(r => r.items)
+            return this.spotify.getPlaylistTracks(this.playlist.id, {limit: 50}).then(r => r.items)
           } else {
             return this.spotify.getMySavedTracks().then(r => r.items);
           }
