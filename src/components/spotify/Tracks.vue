@@ -2,7 +2,7 @@
   .tracks
     b-field(label="Tracks").has-text-centered
       b-input(v-model="search" placeholder="Search for a Track" icon="music")
-    b-table(:data="tracksWithInfo" narrowed selectable :selected.sync="selectedTrack")
+    b-table(:data="shownTracks" narrowed selectable :selected.sync="selectedTrack")
       template(slot-scope="{row}")
         b-table-column(:width="20")
           a(@click.prevent="toggleSaved(row.track.id)")
@@ -62,6 +62,13 @@
     },
     computed: {
       ...mapGetters(['spotify']),
+      shownTracks() {
+        return this.tracksWithInfo.filter(t =>
+          t.track.name.toLowerCase().includes(this.search.toLowerCase()) ||
+          t.track.album.name.toLowerCase().includes(this.search.toLowerCase()) ||
+          t.track.artists.some(a => a.name.toLowerCase().includes(this.search.toLowerCase()))
+        )
+      },
       selectedTrack: {
         get() {
           return this.selected

@@ -2,12 +2,12 @@
   .playlists
     b-field(label="Playlists").has-text-centered
       b-input(v-model="search" placeholder="Search for a playlist" icon="list-ul")
-    b-table(:data="playlists" narrowed selectable :selected.sync="selectedPlaylist")
+    b-table(:data="shownPlaylists" narrowed selectable :selected.sync="selectedPlaylist")
       template(slot-scope="props")
         b-table-column(field="tracks.total" label="" numeric width="20")
           b-tag(type="is-primary") {{ props.row.tracks.total }}
         b-table-column(field="name" label="Name")
-            p {{ props.row.name }}
+          p {{ props.row.name }}
         b-table-column(numeric width="20")
           b-tooltip(label="Add to Apple Music" animated size="is-small" type="is-light")
             a(@click="addToAppleMusic(props.row)")
@@ -40,6 +40,11 @@
     },
     computed: {
       ...mapGetters(['spotify']),
+      shownPlaylists() {
+        return this.playlists.filter(
+          p => p.name.toLowerCase().includes(this.search.toLowerCase())
+        )
+      },
       selectedPlaylist: {
         get() {
           return this.selected
