@@ -9,7 +9,7 @@
         b-table-column(field="name" label="Name")
           p {{ props.row.name }}
         b-table-column(numeric width="20")
-          b-tooltip(label="Add to Apple Music" animated size="is-small" type="is-light")
+          b-tooltip.is-slow(label="Add to Apple Music" animated size="is-small" type="is-light")
             a(@click="addToAppleMusic(props.row)")
               b-icon(pack="fab" icon="apple")
 </template>

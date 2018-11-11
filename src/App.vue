@@ -14,8 +14,7 @@
     name: 'App',
     mounted() {
     },
-    methods: {
-    },
+    methods: {},
   }
 </script>
 
@@ -51,4 +50,9 @@
   // Import Bulma and Buefy styles
   @import "~bulma";
   @import "~buefy/src/scss/buefy";
+
+  .tooltip.is-slow:not([data-label=""]):hover:before,
+  .tooltip.is-slow:not([data-label=""]):hover:after {
+    transition-delay: 0.5s;
+  }
 </style>

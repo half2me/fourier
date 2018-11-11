@@ -5,8 +5,9 @@
     b-table(:data="shownTracks" narrowed selectable :selected.sync="selectedTrack")
       template(slot-scope="{row}")
         b-table-column(:width="20")
-          a(@click.prevent="toggleSaved(row.track.id)")
-            b-icon(:icon="row.saved ? 'check' : 'plus'" size="is-small")
+          b-tooltip.is-slow(:label="row.saved ? 'Remove from my Library' : 'Add to my Library'" animated size="is-small")
+            a(@click.prevent="toggleSaved(row.track.id)")
+              b-icon(:icon="row.saved ? 'check' : 'plus'" size="is-small")
         b-table-column(field="track.name" label="Name")
           a {{ row.track.name }}
 </template>
