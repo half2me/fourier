@@ -2,7 +2,7 @@
   .tracks
     b-field(label="Tracks").has-text-centered
       b-input(v-model="search" placeholder="Search for a Track" icon="music")
-    b-table(:data="shownTracks" narrowed selectable :selected.sync="selectedTrack")
+    b-table(:data="shownTracks" narrowed selectable :selected.sync="selectedTrack" :loading="$asyncComputed.tracks.updating")
       template(slot-scope="{row}")
         b-table-column(:width="20")
           b-tooltip.is-slow(:label="row.saved ? 'Remove from my Library' : 'Add to my Library'" animated size="is-small")
