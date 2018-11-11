@@ -1,7 +1,7 @@
 <template lang="pug">
   .tracks
     b-field(label="Tracks").has-text-centered
-      b-input(rounded v-model="search" placeholder="Search for a Track")
+      b-input(v-model="search" placeholder="Search for a Track" icon="music")
     b-table(:data="tracks" narrowed selectable :selected.sync="selectedTrack")
       template(slot-scope="props")
         b-table-column(:width="20")

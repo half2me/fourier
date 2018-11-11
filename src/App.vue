@@ -4,7 +4,7 @@
       .navbar-brand
         router-link(:to="{name: 'spotify'}" :class="{'is-active': $route.name === 'spotify'}").navbar-item
           b-icon(pack="fab" icon="spotify")
-        router-link(:to="{name: 'apple-music'}" :class="{'is-active': $route.name === 'apple'}").navbar-item
+        router-link(:to="{name: 'apple-music'}" :class="{'is-active': $route.name === 'apple-music'}").navbar-item
           b-icon(pack="fab" icon="apple")
     router-view
 </template>

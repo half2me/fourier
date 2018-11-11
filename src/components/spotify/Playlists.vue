@@ -1,17 +1,22 @@
 <template lang="pug">
   .playlists
     b-field(label="Playlists").has-text-centered
-      b-input(rounded v-model="search" placeholder="Search for a playlist")
+      b-input(v-model="search" placeholder="Search for a playlist" icon="list-ul")
     b-table(:data="playlists" narrowed selectable :selected.sync="selectedPlaylist")
       template(slot-scope="props")
         b-table-column(field="tracks.total" label="" numeric width="20")
           b-tag(type="is-primary") {{ props.row.tracks.total }}
         b-table-column(field="name" label="Name")
-          p {{ props.row.name }}
+            p {{ props.row.name }}
+        b-table-column(numeric width="20")
+          b-tooltip(label="Add to Apple Music" animated size="is-small" type="is-light")
+            a(@click="addToAppleMusic(props.row)")
+              b-icon(pack="fab" icon="apple")
 </template>
 
 <script>
   import {mapGetters} from 'vuex'
+  import AddToAppleMusic from '@/components/apple-music/AddToAppleMusic'
 
   export default {
     name: 'Playlists',
@@ -49,6 +54,17 @@
         search: '',
       }
     },
-    methods: {},
+    methods: {
+      addToAppleMusic(playlist) {
+        this.$modal.open({
+          parent: this,
+          component: AddToAppleMusic,
+          props: {
+            playlist,
+          },
+          hasModalCard: true
+        })
+      },
+    },
   }
 </script>
