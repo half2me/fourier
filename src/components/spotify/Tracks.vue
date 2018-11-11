@@ -2,12 +2,12 @@
   .tracks
     b-field(label="Tracks").has-text-centered
       b-input(v-model="search" placeholder="Search for a Track" icon="music")
-    b-table(:data="tracks" narrowed selectable :selected.sync="selectedTrack")
-      template(slot-scope="props")
+    b-table(:data="tracksWithInfo" narrowed selectable :selected.sync="selectedTrack")
+      template(slot-scope="{row}")
         b-table-column(:width="20")
-          b-icon(icon="plus" size="is-small" type="is-primary")
+          b-icon(:icon="row.saved ? 'check' : 'plus'" size="is-small")
         b-table-column(field="track.name" label="Name")
-          a {{ props.row.track.name }}
+          a {{ row.track.name }}
 </template>
 
 <script>
@@ -41,6 +41,19 @@
             return this.spotify.getPlaylistTracks(this.playlist.id).then(r => r.items)
           } else {
             return this.spotify.getMySavedTracks().then(r => r.items);
+          }
+        },
+        default: [],
+      },
+      tracksWithInfo: {
+        get() {
+          if (this.tracks.length > 0) {
+            return this.spotify.containsMySavedTracks(this.tracks.map(t => t.track.id)).then(r => r.map((saved, idx) => ({
+              saved,
+              ...this.tracks[idx]
+            })))
+          } else {
+            return [];
           }
         },
         default: [],
