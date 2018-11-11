@@ -34,7 +34,6 @@
     data() {
       return {
         search: '',
-        bump: 0,
       }
     },
     asyncComputed: {
