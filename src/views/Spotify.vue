@@ -40,9 +40,31 @@
       playbackState() {
         return this.spotify.getMyCurrentPlaybackState();
       },
+      player() {
+        return this.loadSpotifyPlayer().then(() => {
+          const p = new Spotify.Player({
+            name: 'Fourier',
+            getOAuthToken: f => f(this.spotify.token)
+          });
+        });
+      }
     },
     computed: {
       ...mapGetters(['spotify']),
+    },
+    mounted() {
+
+    },
+    methods: {
+      loadSpotifyPlayer() {
+        return new Promise((resolve, reject) => {
+          const script = document.createElement('script');
+          window.onSpotifyWebPlaybackSDKReady = resolve;
+          script.async = true;
+          script.src = 'https://sdk.scdn.co/spotify-player.js';
+          document.head.appendChild(script);
+        });
+      }
     },
   }
 </script>
