@@ -42,29 +42,51 @@
       },
       player() {
         return this.loadSpotifyPlayer().then(() => {
-          const p = new Spotify.Player({
-            name: 'Fourier',
-            getOAuthToken: f => f(this.spotify.token)
+          const p = new window.Spotify.Player({
+            name: 'Fourier Player',
+            getOAuthToken: f => f(this.spotifyAccessToken)
           });
+
+          p.addListener('initialization_error', msg => console.error(msg));
+          p.addListener('authentication_error', msg => console.error(msg));
+          p.addListener('account_error', msg => console.error(msg));
+          p.addListener('playback_error', msg => console.error(msg));
+          p.addListener('player_state_changed', state => console.log(state));
+          p.addListener('ready', device_id => console.log(device_id));
+          p.addListener('not_ready', device_id => console.log(device_id));
+          p.connect(); // Promise
+
+          return p;
         });
       }
     },
     computed: {
-      ...mapGetters(['spotify']),
+      ...mapGetters(['spotify', 'spotifyAccessToken']),
     },
     mounted() {
-
+    },
+    beforeDestroy() {
+      if (this.player) {
+        this.player.disconnect();
+      }
     },
     methods: {
       loadSpotifyPlayer() {
         return new Promise((resolve, reject) => {
-          const script = document.createElement('script');
-          window.onSpotifyWebPlaybackSDKReady = resolve;
-          script.async = true;
-          script.src = 'https://sdk.scdn.co/spotify-player.js';
-          document.head.appendChild(script);
+          const scriptId = 'spotify-sdk-script';
+          if (! document.getElementById(scriptId)) {
+            const script = document.getElementById(scriptId) || document.createElement('script');
+            window.onSpotifyWebPlaybackSDKReady = resolve;
+            script.id = scriptId;
+            script.onerror = reject;
+            script.async = true;
+            script.src = 'https://sdk.scdn.co/spotify-player.js';
+            document.head.appendChild(script);
+          } else {
+            resolve();
+          }
         });
-      }
+      },
     },
   }
 </script>
