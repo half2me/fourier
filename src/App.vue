@@ -1,6 +1,7 @@
 <template lang="pug">
   #app
     nav.navbar.is-primary(aria-label='main-navigation')
+      img(src="logo.png")
       .navbar-brand
         router-link(:to="{name: 'spotify'}" :class="{'is-active': $route.name === 'spotify'}").navbar-item
           b-icon(pack="fab" icon="spotify")
