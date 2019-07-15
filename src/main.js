@@ -18,4 +18,7 @@ new Vue({
   router,
   beforeCreate() {this.$store.commit('initialiseStore')},
   render: h => h(App),
+    data: {
+        logo: './assets/logo.png'
+    },
 }).$mount('#app');
