@@ -1,6 +1,6 @@
 <template lang="pug">
   .info-panel(v-if="track")
-    img(v-if="albumCover" :src="albumCover.url" :height="albumCover.height" :width="albumCover.width")
+    img(v-if="albumCover" :src="albumCover.url")
     p Spotify ID:
       a(:href="track.track.uri") {{ track.track.id }}
     p Name: {{ track.track.name }}

@@ -13,14 +13,13 @@ html, body {
 
 nav {
   height: 100px;
-  position: relative;
   background-color: #1DB954;
   display: block;
 }
 
 nav img {
-  height: 80%;
-  margin-left: 10px;
+  height: 90%;
+  top: 50%;
 }
 
 .navbar-brand{

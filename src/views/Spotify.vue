@@ -1,11 +1,15 @@
 <template lang="pug">
-  .row
-    .col-md-4
-      playlists(v-model="selectedPlaylist")
-    .col-md-4
-      tracks(:playlist="selectedPlaylist" v-model="selectedTrack")
-    .col-md-4
-      info-panel(:track="selectedTrack")
+  .container
+    .row
+      .col-md-4
+        h3 Playlists
+        playlists(v-model="selectedPlaylist")
+      .col-md-4
+        h3 Songs
+        tracks(:playlist="selectedPlaylist" v-model="selectedTrack")
+      .col-md-4
+        h3 Selected Track
+        info-panel(:track="selectedTrack")
 </template>
 
 <script>
