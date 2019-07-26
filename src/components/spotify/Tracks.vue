@@ -8,7 +8,7 @@
           b-tooltip.is-slow(:label="row.saved ? 'Remove from my Library' : 'Add to my Library'" animated size="is-small")
             a(@click.prevent="toggleSaved(row)")
               b-icon(:icon="row.saved ? 'check' : 'plus'" size="is-small")
-        b-table-column(field="track.name" label="Name")
+        b-table-column(field="track.name" label="")
           a {{ row.track.name }}
 </template>
 

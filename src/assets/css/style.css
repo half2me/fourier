@@ -20,13 +20,14 @@ nav {
 
 nav img {
   height: 90%;
+  margin-top: 2px;
+  margin-left: 10px;
   top: 50%;
 }
 
 .navbar-brand{
   position: absolute;
-  right: 10px;
-  top: 10px;
+  right: 0;
   color: #fff;
 }
 .navbar-brand a {
@@ -39,3 +40,10 @@ nav img {
 .info-panel img {
   width: 100%;
 }
+p.track { color: #191414; font-weight: bold; font-size: 18px;}
+p.artist {
+  font-size: 16px;
+}
+p.album{font-size: 14px;}
+
+.info-panel{text-align: center}

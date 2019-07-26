@@ -1,12 +1,15 @@
 <template lang="pug">
   .playlists
-    b-input(v-model="search" placeholder="Search for a playlist" icon="search")
+    b-field(label="Playlists").has-text-centered
+      b-input(v-model="search" placeholder="Search for a playlist" icon="search")
     b-table(:data="shownPlaylists" narrowed selectable :selected.sync="selectedPlaylist" :loading="$asyncComputed.playlists.updating")
       template(slot-scope="props")
         b-table-column(field="name")
-            p {{ props.row.name }}
-        b-table-column(field="tracks.total" label="" numeric width="20")
-            b-tag(type="is-primary") {{ props.row.tracks.total }}
+            p
+              b {{ props.row.name }}
+            b-taglist(attached=true)
+                b-tag(type="is-dark") Tracks
+                b-tag(type="is-primary") {{ props.row.tracks.total }}
 </template>
 
 <script>
