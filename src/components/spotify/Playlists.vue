@@ -8,8 +8,14 @@
             p
               b {{ props.row.name }}
             b-taglist(attached=true)
-                b-tag(type="is-dark") Tracks
-                b-tag(type="is-primary") {{ props.row.tracks.total }}
+              b-tag(type="is-dark") Tracks
+              b-tag(type="is-primary") {{ props.row.tracks.total }}
+        b-table-column(width="20" field="" label="")
+          b-tooltip.is-slow(label="Show playlist details" animated size="is-small")
+            b-icon(icon="sort-up")
+          b-tooltip.is-slow(label="Add to Apple Music" animated size="is-small")
+            a(@click="addToAppleMusic(props.row)")
+              b-icon(pack="fab" icon="apple")
 </template>
 
 <script>
