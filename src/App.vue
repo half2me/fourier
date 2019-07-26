@@ -1,13 +1,26 @@
 <template lang="pug">
-  #app
-    nav.navbar.is-primary(aria-label='main-navigation')
-      img.logo(src="./assets/logo.png")
-      .navbar-brand
-        router-link(:to="{name: 'spotify'}" :class="{'is-active': $route.name === 'spotify'}").navbar-item
-          b-icon(pack="fab" icon="spotify")
-        router-link(:to="{name: 'apple-music'}" :class="{'is-active': $route.name === 'apple-music'}").navbar-item
-          b-icon(pack="fab" icon="apple")
-    router-view
+  doctype html
+  html
+    head
+      title= title
+
+      link(rel='stylesheet' href='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css'
+        integrity='sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u' crossorigin='anonymous')
+
+      link(rel='stylesheet' href='https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css')
+
+      link(rel='stylesheet', href='/stylesheets/style.css')
+
+    body
+      #app
+        nav.navbar.is-primary(aria-label='main-navigation')
+          img.logo(src="./assets/logo-black.png")
+          .navbar-brand
+            router-link(:to="{name: 'spotify'}" :class="{'is-active': $route.name === 'spotify'}").navbar-item.spotify
+              b-icon(pack="fab" icon="spotify")
+            router-link(:to="{name: 'apple-music'}" :class="{'is-active': $route.name === 'apple-music'}").navbar-item.apple
+              b-icon(pack="fab" icon="apple")
+        router-view
 </template>
 
 <script>
@@ -22,40 +35,5 @@
 </script>
 
 <style lang="scss">
-  // Import Bulma's core
-  @import "~bulma/sass/utilities/_all";
-
-  // Set your colors
-  $primary: #0aa314;
-  $primary-invert: findColorInvert($primary);
-  $twitter: #4099FF;
-  $twitter-invert: findColorInvert($twitter);
-
-  // Setup $colors to use as bulma classes (e.g. 'is-twitter')
-  $colors: (
-    "white": ($white, $black),
-    "black": ($black, $white),
-    "light": ($light, $light-invert),
-    "dark": ($dark, $dark-invert),
-    "primary": ($primary, $primary-invert),
-    "info": ($info, $info-invert),
-    "success": ($success, $success-invert),
-    "warning": ($warning, $warning-invert),
-    "danger": ($danger, $danger-invert),
-    "twitter": ($twitter, $twitter-invert)
-  );
-
-  // Links
-  $link: $primary;
-  $link-invert: $primary-invert;
-  $link-focus-border: $primary;
-
-  // Import Bulma and Buefy styles
-  @import "~bulma";
-  @import "~buefy/src/scss/buefy";
-
-  .tooltip.is-slow:not([data-label=""]):hover:before,
-  .tooltip.is-slow:not([data-label=""]):hover:after {
-    transition-delay: 0.5s;
-  }
+@import './assets/css/style.css';
 </style>

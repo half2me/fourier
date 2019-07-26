@@ -1,10 +1,10 @@
 <template lang="pug">
-  .columns
-    .column.is-one-quarter
+  .row
+    .col-md-4
       playlists(v-model="selectedPlaylist")
-    .column.is-one-third
+    .col-md-4
       tracks(:playlist="selectedPlaylist" v-model="selectedTrack")
-    .column
+    .col-md-4
       info-panel(:track="selectedTrack")
 </template>
 

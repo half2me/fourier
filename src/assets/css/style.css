@@ -1,0 +1,37 @@
+@import url('https://fonts.googleapis.com/css?family=Roboto+Condensed');
+
+html, body {
+  font-family: 'Roboto Condensed', sans-serif;
+  margin: 0;
+  padding: 0;
+  border: 0;
+}
+
+#app, p {
+  font-family: 'Roboto Condensed', sans-serif;
+}
+
+nav {
+  height: 100px;
+  position: relative;
+  background-color: #1DB954;
+  display: block;
+}
+
+nav img {
+  height: 80%;
+  margin-left: 10px;
+}
+
+.navbar-brand{
+  position: absolute;
+  right: 10px;
+  top: 10px;
+  color: #fff;
+}
+.navbar-brand a {
+  color: #fff;
+}
+.is-active {
+  color: #191414!important;
+}
