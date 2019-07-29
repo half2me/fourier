@@ -62,6 +62,21 @@ p.album{font-size: 14px;}
   color: white;
 }
 
+.now-playing {background-color: #191414; position: absolute; bottom: 0; right: 0; width: 33%;}
+
+.now-playing p {color: white;}
+
+.columns.now-play, .columns.player {
+  margin: 0 !important;
+}
 .player a:hover {
   color: #1DB954;
+}
+
+.trackName {
+  font-size: 22px;
+}
+
+.artistName {
+  font-size: 18px;
 }

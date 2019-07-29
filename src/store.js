@@ -62,7 +62,7 @@ export default new Vuex.Store({
       p.addListener('account_error', msg => console.error(msg));
       p.addListener('playback_error', msg => console.error(msg));
       p.addListener('player_state_changed', ({paused}) => commit('setSpotifyPaused', paused));
-      p.addListener('player_state_changed', state => commit('setCurrentTrack', state.track_window.current_track.album.images[0]));
+      p.addListener('player_state_changed', state => commit('setCurrentTrack', state.track_window.current_track));
       return p.connect()
     },
     togglePlayer: ({state: {spotifyPlayer: p}}) => p.togglePlay(),

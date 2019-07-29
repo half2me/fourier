@@ -1,8 +1,13 @@
 <template lang="pug">
   .now-playing(v-if="spotifyPlayer")
     .columns.now-play
-      .column.is-10.is-offset-1
-        img(v-if="currentTrack" :src="currentTrack.url")
+      .column.is-3
+        img(v-if="currentTrack" :src="currentTrack.album.images[0].url")
+      .column.is-9
+        p.trackName
+          b {{currentTrack.name}}
+        p.artistName {{ currentTrack.artists.map(a => a.name).join(', ') }}
+        p {{ currentTrack.album.name}}
     .columns.player
       .column.is-4
         a(@click="prev")

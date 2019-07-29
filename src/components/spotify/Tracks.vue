@@ -11,9 +11,13 @@
         b-table-column(field="track.name" label="")
           a {{ row.track.name }}
         b-table-column(width="20px" label=" ")
-          b-tooltip.is-slow(label="Add to Apple Music" animated size="is-small")
-            a(@click="addToAppleMusic()")
+          b-taglist(attached=true)
+            b-tag(type="is-dark")
               b-icon(pack="fab" icon="apple")
+            b-tag(type="light")
+              b-tooltip.is-slow(label="Add to Apple Music" animated size="is-small")
+                a(@click="addToAppleMusic()")
+                  b-icon(icon="plus" size="is-small")
 </template>
 
 <script>
