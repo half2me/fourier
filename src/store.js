@@ -7,9 +7,10 @@ Vue.use(Vuex);
 
 export default new Vuex.Store({
   state: {
-    spotify: new Spotify()
+    spotify: new Spotify(),
   },
   getters: {
+    spotifyAccessToken: state => state.spotify.getAccessToken(),
     // A wrapper around the spotify client to automatically handle auth on failure
     spotify: state => new Proxy(state.spotify, {
       get: (target, name) => (...a) => target[name](...a).catch(e => {
