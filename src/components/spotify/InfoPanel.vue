@@ -1,5 +1,5 @@
 <template lang="pug">
-  .info-panel(v-if="track")
+  .info-panel(v-if="track && spotifyPlayer")
     br
     .columns
       .column.is-10.is-offset-1
@@ -15,46 +15,49 @@
     b-taglist(attached=true)
       b-tag(type="is-dark") popularity
       b-tag(type="is-primary") {{ track.track.popularity }}
-      //b-tag(v-show="track.track.explicit" type="is-warning") explicit
 </template>
 
 <script>
-  import {mapGetters} from 'vuex'
+    import {mapActions, mapGetters, mapState} from 'vuex'
 
   export default {
     name: 'InfoPanel',
-    props: {
-      track: {
-        type: Object,
-        default: () => null,
-      },
-    },
-    asyncComputed: {
-      audioAnalysis() {
-        if (this.track) {
-          return this.spotify.getAudioAnalysisForTrack(this.track.track.id)
-        }
-      },
-      audioFeatures() {
-        if (this.track) {
-          return this.spotify.getAudioFeaturesForTrack(this.track.track.id)
-        }
-      },
-      millis() {
-          return Number(((this.track?.track.duration_ms % 60000) / 1000).toFixed(0)) === 60
-              ? (Math.floor(this.track?.track.duration_ms / 60000)+1) + ":00"
-              : Math.floor(this.track?.track.duration_ms / 60000)
-              + ":"
-              + (Number(((this.track?.track.duration_ms % 60000) / 1000).toFixed(0)) < 10 ? "0" : "")
-              + Number(((this.track?.track.duration_ms % 60000) / 1000).toFixed(0));
-      }
-    },
-    computed: {
-      ...mapGetters(['spotify']),
-      albumCover() {
-        return this.track?.track.album.images[0]
-      }
-    },
-    methods: {},
-  }
+props: {
+track: {
+type: Object,
+default: () => null,
+},
+},
+asyncComputed: {
+
+audioAnalysis() {
+if (this.track) {
+return this.spotify.getAudioAnalysisForTrack(this.track.track.id)
+}
+},
+audioFeatures() {
+if (this.track) {
+return this.spotify.getAudioFeaturesForTrack(this.track.track.id)
+}
+},
+millis() {
+return Number(((this.track?.track.duration_ms % 60000) / 1000).toFixed(0)) === 60
+? (Math.floor(this.track?.track.duration_ms / 60000)+1) + ":00"
+: Math.floor(this.track?.track.duration_ms / 60000)
++ ":"
++ (Number(((this.track?.track.duration_ms % 60000) / 1000).toFixed(0)) < 10 ? "0" : "")
++ Number(((this.track?.track.duration_ms % 60000) / 1000).toFixed(0));
+},
+},
+computed: {
+...mapState(['spotifyPaused', 'spotifyPlayer']),
+...mapGetters(['spotify']),
+albumCover() {
+return this.track?.track.album.images[0]
+}
+},
+methods: {
+...mapActions(['togglePlayer'])
+},
+}
 </script>

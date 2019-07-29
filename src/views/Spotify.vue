@@ -6,18 +6,22 @@
       tracks(:playlist="selectedPlaylist" v-model="selectedTrack")
     .column
       info-panel(:track="selectedTrack")
+      br
+      now-playing(:track="selectedTrack")
 </template>
 
 <script>
   import Playlists from '@/components/spotify/Playlists'
   import Tracks from '@/components/spotify/Tracks'
   import InfoPanel from '@/components/spotify/InfoPanel'
-  import {mapGetters} from 'vuex'
+  import {mapActions, mapGetters, mapState} from 'vuex'
   import {requestAccessToken} from '@/spotify'
+  import NowPlaying from "../components/spotify/NowPlaying";
 
   export default {
     name: 'spotify',
     components: {
+        NowPlaying,
       Playlists, Tracks, InfoPanel
     },
     data() {
@@ -40,53 +44,18 @@
       playbackState() {
         return this.spotify.getMyCurrentPlaybackState();
       },
-      player() {
-        return this.loadSpotifyPlayer().then(() => {
-          const p = new window.Spotify.Player({
-            name: 'Fourier Player',
-            getOAuthToken: f => f(this.spotifyAccessToken)
-          });
-
-          p.addListener('initialization_error', msg => console.error(msg));
-          p.addListener('authentication_error', msg => console.error(msg));
-          p.addListener('account_error', msg => console.error(msg));
-          p.addListener('playback_error', msg => console.error(msg));
-          p.addListener('player_state_changed', state => console.log(state));
-          p.addListener('ready', device_id => console.log(device_id));
-          p.addListener('not_ready', device_id => console.log(device_id));
-          p.connect(); // Promise
-
-          return p;
-        });
+      async player() {
+        await this.initSpotifyPlayer();
+        await this.connectSpotifyPlayer();
+        return this.spotifyPlayer;
       }
     },
     computed: {
       ...mapGetters(['spotify', 'spotifyAccessToken']),
-    },
-    mounted() {
-    },
-    beforeDestroy() {
-      if (this.player) {
-        this.player.disconnect();
-      }
+      ...mapState(['spotifyPlayer']),
     },
     methods: {
-      loadSpotifyPlayer() {
-        return new Promise((resolve, reject) => {
-          const scriptId = 'spotify-sdk-script';
-          if (! document.getElementById(scriptId)) {
-            const script = document.getElementById(scriptId) || document.createElement('script');
-            window.onSpotifyWebPlaybackSDKReady = resolve;
-            script.id = scriptId;
-            script.onerror = reject;
-            script.async = true;
-            script.src = 'https://sdk.scdn.co/spotify-player.js';
-            document.head.appendChild(script);
-          } else {
-            resolve();
-          }
-        });
-      },
+      ...mapActions(['initSpotifyPlayer', 'connectSpotifyPlayer'])
     },
   }
 </script>

@@ -37,7 +37,7 @@ nav img {
   color: #191414!important;
 }
 
-.info-panel img {
+.info-panel img, .now-playing img {
   width: 100%;
 }
 p.track { color: #191414; font-weight: bold; font-size: 18px;}
@@ -46,3 +46,22 @@ p.artist {
 }
 p.album{font-size: 14px;}
 
+.player {
+  text-align: center;
+  background-color: #191414;
+  bottom: 0;
+  width: 100%;
+}
+
+.info-panel {
+  position: relative;
+  height: 75%;
+}
+
+.player a {
+  color: white;
+}
+
+.player a:hover {
+  color: #1DB954;
+}

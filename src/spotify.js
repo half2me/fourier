@@ -35,3 +35,20 @@ export const requestAccessToken = () => {
   for (const [key, val] of Object.entries($queryParams)) {params.append(key, val)}
   window.location = 'https://accounts.spotify.com/authorize?' + params.toString();
 };
+
+export const loadSpotifyPlayerSDK = () => {
+  return new Promise((resolve, reject) => {
+    const scriptId = 'spotify-sdk-script';
+    if (! document.getElementById(scriptId)) {
+      const script = document.getElementById(scriptId) || document.createElement('script');
+      window.onSpotifyWebPlaybackSDKReady = resolve;
+      script.id = scriptId;
+      script.onerror = reject;
+      script.async = true;
+      script.src = 'https://sdk.scdn.co/spotify-player.js';
+      document.head.appendChild(script);
+    } else {
+      resolve();
+    }
+  });
+};
