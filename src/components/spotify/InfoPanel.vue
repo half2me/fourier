@@ -2,9 +2,7 @@
   .info-panel(v-if="track")
     br
     .columns
-      .column.is-1
-        br
-      .column.is-9
+      .column.is-10.is-offset-1
         img(v-if="albumCover" :src="albumCover.url")
     .columns
       .column.is-10
@@ -43,7 +41,12 @@
         }
       },
       millis() {
-          return Math.floor(this.track?.track.duration_ms / 60000) + ":" + ((this.track?.track.duration_ms % 60000) / 1000).toFixed(0);
+          return Number(((this.track?.track.duration_ms % 60000) / 1000).toFixed(0)) === 60
+              ? (Math.floor(this.track?.track.duration_ms / 60000)+1) + ":00"
+              : Math.floor(this.track?.track.duration_ms / 60000)
+              + ":"
+              + (Number(((this.track?.track.duration_ms % 60000) / 1000).toFixed(0)) < 10 ? "0" : "")
+              + Number(((this.track?.track.duration_ms % 60000) / 1000).toFixed(0));
       }
     },
     computed: {

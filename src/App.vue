@@ -58,4 +58,8 @@ $link-focus-border: $primary;
 .tooltip.is-slow:not([data-label=""]):hover:after {
   transition-delay: 0.5s;
 }
+
+  .column img {
+    border: 2px #191414 solid;
+  }
 </style>
