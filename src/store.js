@@ -13,6 +13,7 @@ export default new Vuex.Store({
     spotifyPlayer: null,
     spotifyPaused: false,
     currentTrack: '',
+    position: '',
   },
   getters: {
     spotifyAccessToken: state => state.spotify.getAccessToken(),
@@ -46,7 +47,10 @@ export default new Vuex.Store({
     },
     setCurrentTrack: (state, val) => {
       state.currentTrack = val;
-      console.log(state.currentTrack);
+    },
+    setPosition: (state, val) => {
+      console.log(val);
+      state.postion = val;
     }
   },
   actions: {
@@ -63,6 +67,7 @@ export default new Vuex.Store({
       p.addListener('playback_error', msg => console.error(msg));
       p.addListener('player_state_changed', ({paused}) => commit('setSpotifyPaused', paused));
       p.addListener('player_state_changed', state => commit('setCurrentTrack', state.track_window.current_track));
+      p.addListener('player_state_changed', state => commit('setPosition', state.position));
       return p.connect()
     },
     togglePlayer: ({state: {spotifyPlayer: p}}) => p.togglePlay(),

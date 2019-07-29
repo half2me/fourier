@@ -12,9 +12,6 @@
         b-icon(icon="clock")
         p {{ millis }}
     a(:href="track.track.uri") {{ "Open in Spotify" }}
-    b-taglist(attached=true)
-      b-tag(type="is-dark") popularity
-      b-tag(type="is-primary") {{ track.track.popularity }}
 </template>
 
 <script>

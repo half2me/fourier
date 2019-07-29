@@ -8,6 +8,9 @@
           b {{currentTrack.name}}
         p.artistName {{ currentTrack.artists.map(a => a.name).join(', ') }}
         p {{ currentTrack.album.name}}
+    .columns
+      .column
+        p {{position}}
     .columns.player
       .column.is-4
         a(@click="prev")
@@ -44,7 +47,7 @@
             },
         },
         computed: {
-            ...mapState(['spotifyPaused', 'spotifyPlayer', 'currentTrack']),
+            ...mapState(['spotifyPaused', 'spotifyPlayer', 'currentTrack', 'position']),
             ...mapGetters(['spotify']),
         },
         methods: {
