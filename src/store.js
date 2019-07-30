@@ -59,10 +59,21 @@ export default new Vuex.Store({
       }
     },
     connectSpotifyPlayer: ({commit, state: {spotifyPlayer: p}}) => {
+      p.addListener('player_state_changed', state => {
+        if(state == null) {
+          var test = document.getElementsByClassName("now-playing");
+          test[0].style.display = "none";
+        }
+      });
       p.addListener('player_state_changed', ({paused}) => commit('setSpotifyPaused', paused));
       p.addListener('player_state_changed', state => commit('setCurrentTrack', state.track_window.current_track));
       p.addListener('player_state_changed', state => commit('setPosition', state.position));
       return p.connect()
+    },
+    disconnectSpotifyPlayer: ({state: {spotifyPlayer: p}}) => {
+      var test =document.getElementsByClassName("now-playing");
+      test[0].style.display = "none";
+      return p.disconnect()
     },
     togglePlayer: ({state: {spotifyPlayer: p}}) => p.togglePlay(),
     next: ({state: {spotifyPlayer: p}}) => p.nextTrack(),

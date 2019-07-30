@@ -10,7 +10,7 @@
         p {{ currentTrack.album.name}}
     .columns
       .column
-        p {{position}}
+        a(@click="disconnectSpotifyPlayer") Disconnect
     .columns.player
       .column.is-4
         a(@click="prev")
@@ -51,7 +51,7 @@
             ...mapGetters(['spotify']),
         },
         methods: {
-            ...mapActions(['togglePlayer', 'next','prev'])
+            ...mapActions(['togglePlayer', 'next','prev', 'disconnectSpotifyPlayer'])
         },
     }
 </script>
