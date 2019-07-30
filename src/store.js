@@ -3,7 +3,6 @@ import Vuex from 'vuex'
 import Spotify from 'spotify-web-api-js'
 import {requestAccessToken as getSpotifyAT} from '@/spotify'
 import {loadSpotifyPlayerSDK} from "./spotify";
-import {debounce} from 'lodash-es'
 
 Vue.use(Vuex);
 
@@ -49,7 +48,6 @@ export default new Vuex.Store({
       state.currentTrack = val;
     },
     setPosition: (state, val) => {
-      console.log(val);
       state.postion = val;
     }
   },
@@ -60,11 +58,7 @@ export default new Vuex.Store({
         commit('setSpotifyPlayer');
       }
     },
-    connectSpotifyPlayer: ({commit, state: {spotifyPlayer: p, spotifyPaused}}) => {
-      p.addListener('initialization_error', msg => console.error(msg));
-      p.addListener('authentication_error', msg => console.error(msg));
-      p.addListener('account_error', msg => console.error(msg));
-      p.addListener('playback_error', msg => console.error(msg));
+    connectSpotifyPlayer: ({commit, state: {spotifyPlayer: p}}) => {
       p.addListener('player_state_changed', ({paused}) => commit('setSpotifyPaused', paused));
       p.addListener('player_state_changed', state => commit('setCurrentTrack', state.track_window.current_track));
       p.addListener('player_state_changed', state => commit('setPosition', state.position));
