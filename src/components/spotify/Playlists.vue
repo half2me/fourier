@@ -1,7 +1,8 @@
 <template lang="pug">
   .playlists
-    b-field(label="Playlists").has-text-centered
-      b-input(v-model="search" placeholder="Search for a playlist" icon="search")
+    .top
+      b-field(label="Playlists").has-text-centered
+        b-input(v-model="search" placeholder="Search for a playlist" icon="search")
     b-table(:data="shownPlaylists" narrowed selectable :selected.sync="selectedPlaylist" :loading="$asyncComputed.playlists.updating")
       template(slot-scope="props")
         b-table-column(field="name")

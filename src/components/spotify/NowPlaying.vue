@@ -1,16 +1,20 @@
 <template lang="pug">
   .now-playing(v-if="spotifyPlayer")
     .columns.now-play
-      .column.is-3
-        img(v-if="currentTrack" :src="currentTrack.album.images[0].url")
-      .column.is-9
-        p.trackName
-          b {{currentTrack.name}}
-        p.artistName {{ currentTrack.artists.map(a => a.name).join(', ') }}
-        p {{ currentTrack.album.name}}
+      template(v-if="currentTrack")
+        .column.is-3
+          img(:src="currentTrack.album.images[0].url")
+        .column.is-8
+          p.trackName
+            b {{currentTrack.name}}
+          p.artistName {{ currentTrack.artists.map(a => a.name).join(', ') }}
+          p {{ currentTrack.album.name}}
+        .column.is-1
+          a(@click="disconnectSpotifyPlayer")
+            b-icon(icon="times")
     .columns
-      .column
-        a(@click="disconnectSpotifyPlayer") Disconnect
+      .column.is-10.is-offset-1
+        input(type="range" :max="currentTrack.duration_ms" :value="position" @change="e => seek(e.target.value)")
     .columns.player
       .column.is-4
         a(@click="prev")
@@ -51,7 +55,7 @@
             ...mapGetters(['spotify']),
         },
         methods: {
-            ...mapActions(['togglePlayer', 'next','prev', 'disconnectSpotifyPlayer'])
+            ...mapActions(['togglePlayer', 'next','prev', 'disconnectSpotifyPlayer', 'seek'])
         },
     }
 </script>

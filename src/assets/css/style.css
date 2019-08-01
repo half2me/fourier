@@ -80,3 +80,56 @@ p.album{font-size: 14px;}
 .artistName {
   font-size: 18px;
 }
+
+input {
+  -webkit-appearance: none;  /* Override default CSS styles */
+  appearance: none;
+  width: 100%; /* Full-width */
+  height: 5px; /* Specified height */
+  background: #333; /* Grey background */
+  outline: none; /* Remove outline */
+  opacity: 0.7; /* Set transparency (for mouse-over effects on hover) */
+  -webkit-transition: .2s; /* 0.2 seconds transition on hover */
+  transition: opacity .2s;
+}
+
+input::-webkit-slider-thumb {
+  border-radius: 5px;
+  -webkit-appearance: none; /* Override default look */
+  appearance: none;
+  width: 10px; /* Set a specific slider handle width */
+  height: 10px; /* Slider handle height */
+  background: #1DB954; /* Green background */
+  cursor: pointer; /* Cursor on hover */
+}
+
+input::-moz-range-thumb {
+  border-radius: 5px;
+  width: 10px; /* Set a specific slider handle width */
+  height: 10px; /* Slider handle height */
+  background: #1DB954; /* Green background */
+  cursor: pointer; /* Cursor on hover */
+}
+
+body, html {
+  height: 100%;
+  overflow: hidden;
+}
+
+#app, .columns, .column, .playlists, .tracks {
+  height: 100%;
+}
+
+.columns.album {
+  height: auto;
+}
+
+.b-table {
+  overflow:scroll;
+  height: 90%;
+  padding-bottom: 50px;
+}
+
+.top {
+  height: 10%;
+}
