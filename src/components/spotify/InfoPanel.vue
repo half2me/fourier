@@ -7,7 +7,7 @@
     .columns
       .column.is-1
         a(@click.prevent="changeSong(track.track.uri)")
-          b-icon(:icon="currentTrack.uri === track.track.uri ? 'pause' : 'play'")
+          b-icon(:icon="currentTrack.uri === track.track.uri && !spotifyPaused ? 'pause' : 'play'")
       .column.is-9
         p.track {{ track.track.name }} - {{ track.track.artists.map(a => a.name).join(', ') }}
         p.album {{ track.track.album.name }}

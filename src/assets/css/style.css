@@ -25,26 +25,37 @@ nav img {
   top: 50%;
 }
 
-.navbar-brand{
+.navbar-brand {
   position: absolute;
   right: 0;
   color: #fff;
 }
+
 .navbar-brand a {
   color: #fff;
 }
+
 .is-active {
-  color: #191414!important;
+  color: #191414 !important;
 }
 
 .info-panel img, .now-playing img {
   width: 100%;
 }
-p.track { color: #191414; font-weight: bold; font-size: 18px;}
+
+p.track {
+  color: #191414;
+  font-weight: bold;
+  font-size: 18px;
+}
+
 p.artist {
   font-size: 16px;
 }
-p.album{font-size: 14px;}
+
+p.album {
+  font-size: 14px;
+}
 
 .player {
   text-align: center;
@@ -62,13 +73,22 @@ p.album{font-size: 14px;}
   color: white;
 }
 
-.now-playing {background-color: #191414; position: absolute; bottom: 0; right: 0; width: 33%;}
+.now-playing {
+  background-color: #191414;
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  width: 33%;
+}
 
-.now-playing p {color: white;}
+.now-playing p {
+  color: white;
+}
 
 .columns.now-play, .columns.player {
   margin: 0 !important;
 }
+
 .player a:hover {
   color: #1DB954;
 }
@@ -82,24 +102,27 @@ p.album{font-size: 14px;}
 }
 
 input {
-  -webkit-appearance: none;  /* Override default CSS styles */
+  -webkit-appearance: none; /* Override default CSS styles */
   appearance: none;
   width: 100%; /* Full-width */
-  height: 5px; /* Specified height */
+  height: 7px; /* Specified height */
   background: #333; /* Grey background */
   outline: none; /* Remove outline */
   opacity: 0.7; /* Set transparency (for mouse-over effects on hover) */
   -webkit-transition: .2s; /* 0.2 seconds transition on hover */
   transition: opacity .2s;
+  overflow: hidden;
 }
 
 input::-webkit-slider-thumb {
-  border-radius: 5px;
+
   -webkit-appearance: none; /* Override default look */
   appearance: none;
-  width: 10px; /* Set a specific slider handle width */
-  height: 10px; /* Slider handle height */
-  background: #1DB954; /* Green background */
+  box-shadow: -100vw 0 0 100vw #1DB954;
+  overflow: hidden;
+  width: 7px; /* Set a specific slider handle width */
+  height: 7px; /* Slider handle height */
+  background: #fff; /* Green background */
   cursor: pointer; /* Cursor on hover */
 }
 
@@ -125,11 +148,15 @@ body, html {
 }
 
 .b-table {
-  overflow:scroll;
+  overflow: scroll;
   height: 90%;
   padding-bottom: 50px;
 }
 
 .top {
   height: 10%;
+}
+
+.from {
+  text-align: right;
 }

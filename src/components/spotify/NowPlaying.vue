@@ -13,8 +13,12 @@
           a(@click="disconnectSpotifyPlayer")
             b-icon(icon="times")
     .columns
-      .column.is-10.is-offset-1
+      .column.is-2.from
+        p {{ Number(((position % 60000) / 1000).toFixed(0)) === 60 ? (Math.floor(position / 60000) + 1) + ":00" : Math.floor(position/60000) + ":"+ (Number(((position % 60000) / 1000).toFixed(0)) < 10 ? "0" : "") + Number(((position % 60000) / 1000).toFixed(0))}}
+      .column.is-8
         input(type="range" :max="currentTrack.duration_ms" :value="position" @change="e => seek(e.target.value)")
+      .column.is-2
+        p {{ Number(((currentTrack.duration_ms % 60000) / 1000).toFixed(0)) === 60 ? (Math.floor(currentTrack.duration_ms / 60000) + 1) + ":00" : Math.floor(currentTrack.duration_ms/60000) + ":"+ (Number(((currentTrack.duration_ms % 60000) / 1000).toFixed(0)) < 10 ? "0" : "") + Number(((currentTrack.duration_ms % 60000) / 1000).toFixed(0))}}
     .columns.player
       .column.is-4
         a(@click="prev")
@@ -30,6 +34,7 @@
 
 <script>
     import {mapActions, mapGetters, mapState} from 'vuex'
+
     export default {
         name: "NowPlaying",
         props: {
@@ -55,7 +60,7 @@
             ...mapGetters(['spotify']),
         },
         methods: {
-            ...mapActions(['togglePlayer', 'next','prev', 'disconnectSpotifyPlayer', 'seek'])
+            ...mapActions(['togglePlayer', 'next', 'prev', 'disconnectSpotifyPlayer', 'seek'])
         },
     }
 </script>

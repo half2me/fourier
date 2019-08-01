@@ -21,80 +21,80 @@
 </template>
 
 <script>
-  import {mapGetters} from 'vuex'
+    import {mapGetters} from 'vuex'
 
-  export default {
-    name: 'Tracks',
-    model: {
-      prop: 'selected',
-      event: 'change'
-    },
-    props: {
-      playlist: {
-        type: Object,
-        default: () => null,
-      },
-      selected: {
-        type: Object,
-        default: () => null,
-      }
-    },
-    data() {
-      return {
-        search: '',
-      }
-    },
-    asyncComputed: {
-      tracks: {
-        get() {
-          if (this.playlist?.id) {
-            return this.spotify.getPlaylistTracks(this.playlist.id, {limit: 50}).then(r => r.items)
-          } else {
-            return this.spotify.getMySavedTracks().then(r => r.items);
-          }
+    export default {
+        name: 'Tracks',
+        model: {
+            prop: 'selected',
+            event: 'change'
         },
-        default: [],
-      },
-      tracksWithInfo: {
-        get() {
-          if (this.tracks.length > 0) {
-            return this.spotify.containsMySavedTracks(this.tracks.map(t => t.track.id)).then(r => r.map((saved, idx) => ({
-              saved,
-              ...this.tracks[idx]
-            })))
-          } else {
-            return [];
-          }
+        props: {
+            playlist: {
+                type: Object,
+                default: () => null,
+            },
+            selected: {
+                type: Object,
+                default: () => null,
+            }
         },
-        default: [],
-      },
-    },
-    computed: {
-      ...mapGetters(['spotify']),
-      shownTracks() {
-        return this.tracksWithInfo.filter(t =>
-          t.track.name.toLowerCase().includes(this.search.toLowerCase()) ||
-          t.track.album.name.toLowerCase().includes(this.search.toLowerCase()) ||
-          t.track.artists.some(a => a.name.toLowerCase().includes(this.search.toLowerCase()))
-        )
-      },
-      selectedTrack: {
-        get() {
-          return this.selected
+        data() {
+            return {
+                search: '',
+            }
         },
-        set(val) {
-          this.$emit('change', val)
+        asyncComputed: {
+            tracks: {
+                get() {
+                    if (this.playlist?.id) {
+                        return this.spotify.getPlaylistTracks(this.playlist.id, {limit: 50}).then(r => r.items)
+                    } else {
+                        return this.spotify.getMySavedTracks().then(r => r.items);
+                    }
+                },
+                default: [],
+            },
+            tracksWithInfo: {
+                get() {
+                    if (this.tracks.length > 0) {
+                        return this.spotify.containsMySavedTracks(this.tracks.map(t => t.track.id)).then(r => r.map((saved, idx) => ({
+                            saved,
+                            ...this.tracks[idx]
+                        })))
+                    } else {
+                        return [];
+                    }
+                },
+                default: [],
+            },
         },
-      },
-    },
-    methods: {
-      async toggleSaved(track) {
-        if (track.saved) {
-          await this.spotify.removeFromMySavedTracks([track.track.id]).then(() => track.saved = false);
-        } else {
-          await this.spotify.addToMySavedTracks([track.track.id]).then(() => track.saved = true);
-        }
-      },
-    },
-  }
+        computed: {
+            ...mapGetters(['spotify']),
+            shownTracks() {
+                return this.tracksWithInfo.filter(t =>
+                    t.track.name.toLowerCase().includes(this.search.toLowerCase()) ||
+                    t.track.album.name.toLowerCase().includes(this.search.toLowerCase()) ||
+                    t.track.artists.some(a => a.name.toLowerCase().includes(this.search.toLowerCase()))
+                )
+            },
+            selectedTrack: {
+                get() {
+                    return this.selected
+                },
+                set(val) {
+                    this.$emit('change', val)
+                },
+            },
+        },
+        methods: {
+            async toggleSaved(track) {
+                if (track.saved) {
+                    await this.spotify.removeFromMySavedTracks([track.track.id]).then(() => track.saved = false);
+                } else {
+                    await this.spotify.addToMySavedTracks([track.track.id]).then(() => track.saved = true);
+                }
+            },
+        },
+    }
 </script>
