@@ -13,6 +13,13 @@
         router-link(:to="{name: 'settings'}" :class="{'is-active': $route.name === 'settings'}").navbar-item.settings
           b-icon(icon="cog")
     router-view
+    footer.footer
+      .socials
+        a(target="_blank" href="http://fb.me/fourierAudio")
+          b-icon(pack="fab" icon="facebook-square")
+        a(target="_blank" href="http://twitter.com/fourierAudio")
+          b-icon(pack="fab" icon="twitter-square")
+      p &copy; 2019 Fourier Audio. All rights reserved
 </template>
 
 <script>

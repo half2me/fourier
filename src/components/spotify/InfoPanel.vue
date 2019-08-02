@@ -54,7 +54,6 @@
             ...mapState(['spotifyPaused', 'spotifyPlayer', 'currentTrack']),
             ...mapGetters(['spotify']),
             albumCover() {
-                console.log(this.track?.track.album.images);
                 return this.track?.track.album.images[0]
             },
             qr() {
