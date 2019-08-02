@@ -1,7 +1,8 @@
 <template lang="pug">
   #app
     nav.navbar.is-primary(aria-label='main-navigation')
-      img.logo(src="./assets/logo-grey.png")
+      router-link(:to="{name: 'home'}" :class="{'is-active': $route.name === 'home'}")
+        img.logo(src="./assets/logo-grey.png")
       .navbar-brand
         router-link(:to="{name: 'home'}" :class="{'is-active': $route.name === 'home'}").navbar-item.home
           b-icon(icon="home")
