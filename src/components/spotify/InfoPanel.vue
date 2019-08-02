@@ -1,9 +1,11 @@
 <template lang="pug">
   .info-panel(v-if="track && spotifyPlayer")
     br
-    .columns.album
+    .columns
       .column.is-10.is-offset-1
-        img(v-if="albumCover" :src="albumCover.url")
+        img(v-if="albumCover" :src="albumCover.url").album
+        a(:href="track.track.uri").spotify-qr
+          img(v-if="qr" :src="qr" alt="Open In Spotify" title="Open In Spotify").imgQr
     .columns
       .column.is-1
         a(@click.prevent="changeSong(track.track.uri)")
@@ -14,7 +16,6 @@
       .column.is-2
         b-icon(icon="clock")
         p {{ millis }}
-    a(:href="track.track.uri") {{ "Open in Spotify" }}
 </template>
 
 <script>
@@ -53,11 +54,25 @@
             ...mapState(['spotifyPaused', 'spotifyPlayer', 'currentTrack']),
             ...mapGetters(['spotify']),
             albumCover() {
+                console.log(this.track?.track.album.images);
                 return this.track?.track.album.images[0]
-            }
+            },
+            qr() {
+                return this.track ? 'https://scannables.scdn.co/uri/plain/svg/000000/white/640/' + this.track.track.uri : null;
+            },
         },
         methods: {
             ...mapActions(['togglePlayer', 'changeSong'])
         },
     }
 </script>
+<style lang="scss" scoped>
+  .imgQr {
+    margin-top: -6px;
+  }
+  .spotify-qr:hover {
+      opacity: 0.8;
+    transition: .2s all;
+  }
+
+</style>

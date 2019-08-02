@@ -63,7 +63,4 @@
     transition-delay: 0.5s;
   }
 
-  .column img {
-    border: 2px #191414 solid;
-  }
 </style>

@@ -16,7 +16,7 @@
         (prev, item) => ({[item.split('=')[0]]: item.split('=')[1], ...prev}), {},
       );
       this.updateSpotifyToken(params.access_token);
-      this.$router.push('/');
+      this.$router.push({name: 'spotify'});
     },
   }
 </script>

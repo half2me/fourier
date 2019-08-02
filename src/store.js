@@ -37,7 +37,7 @@ export default new Vuex.Store({
       state.spotify.setAccessToken(token);
       localStorage.setItem('spotify_token', token);
     },
-    setSpotifyPlayer: (state, name = 'fourier-player') => state.spotifyPlayer = new window.Spotify.Player({
+    setSpotifyPlayer: (state, name = 'Fourier Audio') => state.spotifyPlayer = new window.Spotify.Player({
       name,
       getOAuthToken: f => f(state.spotify.getAccessToken())
     }),
