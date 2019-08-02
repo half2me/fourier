@@ -13,7 +13,6 @@ export default new Vuex.Store({
     spotifyPaused: false,
     currentTrack: '',
     position: 0,
-    i:0,
   },
   getters: {
     spotifyAccessToken: state => state.spotify.getAccessToken(),
@@ -51,9 +50,6 @@ export default new Vuex.Store({
     setPosition: (state, val) => {
       state.position = parseInt(val);
     },
-    setIncrement: (state, val) => {
-      state.i = val;
-    }
   },
   actions: {
     pollSpotifyPosition: async ({commit, dispatch, state}) => {
@@ -96,9 +92,8 @@ export default new Vuex.Store({
     prev: ({state: {spotifyPlayer: p}}) => p.previousTrack(),
     seek: ({state: {spotifyPlayer: p}}, position_ms) => p.seek(position_ms),
 
-    changeSong: ({dispatch, commit, state: {spotifyPlayer: p, spotifyPaused, i, currentTrack}}, uri) => {
-      if (!spotifyPaused && (i===0 || currentTrack.uri !== uri)) {
-        commit('setIncrement', 1);
+    changeSong: ({dispatch, state: {spotifyPlayer: p, spotifyPaused, currentTrack}}, uri) => {
+      if ((!spotifyPaused && currentTrack.uri !== uri) || currentTrack.uri !== uri) {
         const play = ({
                         spotify_uri,
                         playerInstance: {
