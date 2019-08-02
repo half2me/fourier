@@ -4,12 +4,14 @@
       template(v-if="currentTrack")
         .column.is-3
           img(:src="currentTrack.album.images[0].url")
-        .column.is-8
+        .column.is-7
           p.trackName
             b {{currentTrack.name}}
           p.artistName {{ currentTrack.artists.map(a => a.name).join(', ') }}
           p {{ currentTrack.album.name}}
-        .column.is-1
+        .column.is-2
+          a(@click="minimisePlayer")
+            b-icon(icon="minus")
           a(@click="disconnectSpotifyPlayer")
             b-icon(icon="times")
     .columns
@@ -19,6 +21,11 @@
         input(type="range" :max="currentTrack.duration_ms" :value="position" @change="e => seek(e.target.value)")
       .column.is-2
         p {{ Number(((currentTrack.duration_ms % 60000) / 1000).toFixed(0)) === 60 ? (Math.floor(currentTrack.duration_ms / 60000) + 1) + ":00" : Math.floor(currentTrack.duration_ms/60000) + ":"+ (Number(((currentTrack.duration_ms % 60000) / 1000).toFixed(0)) < 10 ? "0" : "") + Number(((currentTrack.duration_ms % 60000) / 1000).toFixed(0))}}
+    .columns
+      .column.is-1.is-offset-1
+        b-icon(icon="random")
+      .column.is-1.is-offset-8
+        b-icon(icon="redo-alt")
     .columns.player
       .column.is-4
         a(@click="prev")
@@ -60,7 +67,7 @@
             ...mapGetters(['spotify']),
         },
         methods: {
-            ...mapActions(['togglePlayer', 'next', 'prev', 'disconnectSpotifyPlayer', 'seek'])
+            ...mapActions(['togglePlayer', 'next', 'prev', 'disconnectSpotifyPlayer', 'seek', 'minimisePlayer'])
         },
     }
 </script>

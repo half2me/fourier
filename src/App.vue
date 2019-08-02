@@ -7,6 +7,8 @@
           b-icon(pack="fab" icon="spotify")
         router-link(:to="{name: 'apple-music'}" :class="{'is-active': $route.name === 'apple-music'}").navbar-item.apple
           b-icon(pack="fab" icon="apple")
+        router-link(:to="{name: 'settings'}" :class="{'is-active': $route.name === 'settings'}").navbar-item.settings
+          b-icon(icon="cog")
     router-view
 </template>
 

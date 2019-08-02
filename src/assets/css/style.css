@@ -15,7 +15,6 @@ html, body {
 nav {
   height: 50px;
   background-color: #1DB954;
-  display: block;
 }
 
 nav img {
@@ -28,6 +27,7 @@ nav img {
 .navbar-brand {
   position: absolute;
   right: 0;
+  top:0;
   color: #fff;
 }
 

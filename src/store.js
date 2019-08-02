@@ -91,7 +91,10 @@ export default new Vuex.Store({
     next: ({state: {spotifyPlayer: p}}) => p.nextTrack(),
     prev: ({state: {spotifyPlayer: p}}) => p.previousTrack(),
     seek: ({state: {spotifyPlayer: p}}, position_ms) => p.seek(position_ms),
-
+    minimisePlayer: () => {
+      var test = document.getElementsByClassName("now-playing");
+      test[0].style.display = "none";
+    },
     changeSong: ({dispatch, state: {spotifyPlayer: p, spotifyPaused, currentTrack}}, uri) => {
       if ((!spotifyPaused && currentTrack.uri !== uri) || currentTrack.uri !== uri) {
         const play = ({
