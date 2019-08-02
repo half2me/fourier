@@ -21,11 +21,6 @@
         input(type="range" :max="currentTrack.duration_ms" :value="position" @change="e => seek(e.target.value)")
       .column.is-2
         p {{ Number(((currentTrack.duration_ms % 60000) / 1000).toFixed(0)) === 60 ? (Math.floor(currentTrack.duration_ms / 60000) + 1) + ":00" : Math.floor(currentTrack.duration_ms/60000) + ":"+ (Number(((currentTrack.duration_ms % 60000) / 1000).toFixed(0)) < 10 ? "0" : "") + Number(((currentTrack.duration_ms % 60000) / 1000).toFixed(0))}}
-    .columns
-      .column.is-1.is-offset-1
-        b-icon(icon="random")
-      .column.is-1.is-offset-8
-        b-icon(icon="redo-alt")
     .columns.player
       .column.is-4
         a(@click="prev")
@@ -36,6 +31,10 @@
       .column.is-4
         a(@click="next")
           b-icon(icon="forward")
+    .columns
+      .column.is-1.is-offset-1
+        a(href="#")
+          b-icon(icon="desktop")
 
 </template>
 

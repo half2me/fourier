@@ -67,11 +67,13 @@
 </script>
 <style lang="scss" scoped>
   .imgQr {
-    margin-top: -6px;
+    margin-top: -3%;
+  }
+  .spotify-qr {
+    transition: .2s all;
   }
   .spotify-qr:hover {
-      opacity: 0.8;
-    transition: .2s all;
+      opacity: 0.4;
   }
 
 </style>

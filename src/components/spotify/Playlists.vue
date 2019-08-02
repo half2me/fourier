@@ -11,13 +11,6 @@
             b-taglist(attached=true)
               b-tag(type="is-dark") Tracks
               b-tag(type="is-primary") {{ props.row.tracks.total }}
-        b-table-column(field="" label="")
-          b-taglist(attached=true)
-            b-tag(type="is-dark")
-              b-icon(pack="fab" icon="apple")
-            b-tag(type="light")
-              a(@click="addToAppleMusic()")
-                b-icon(icon="plus" size="is-small")
 </template>
 
 <script>
