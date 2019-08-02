@@ -1,5 +1,5 @@
 <template lang="pug">
-  .now-playing(v-if="spotifyPlayer")
+  .now-playing(v-if="spotifyPlayer && currentTrack")
     .columns.now-play
       template(v-if="currentTrack")
         .column.is-3

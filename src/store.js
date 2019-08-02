@@ -13,6 +13,7 @@ export default new Vuex.Store({
     spotifyPaused: false,
     currentTrack: '',
     position: 0,
+    i:0,
   },
   getters: {
     spotifyAccessToken: state => state.spotify.getAccessToken(),
@@ -49,6 +50,9 @@ export default new Vuex.Store({
     },
     setPosition: (state, val) => {
       state.position = parseInt(val);
+    },
+    setIncrement: (state, val) => {
+      state.i = val;
     }
   },
   actions: {
@@ -92,34 +96,37 @@ export default new Vuex.Store({
     prev: ({state: {spotifyPlayer: p}}) => p.previousTrack(),
     seek: ({state: {spotifyPlayer: p}}, position_ms) => p.seek(position_ms),
 
-    changeSong: ({state: {spotifyPlayer: p}}, uri) => {
-      const play = ({
-                      spotify_uri,
-                      playerInstance: {
-                        _options: {
-                          getOAuthToken,
-                          id,
+    changeSong: ({dispatch, commit, state: {spotifyPlayer: p, spotifyPaused, i, currentTrack}}, uri) => {
+      if (!spotifyPaused && (i===0 || currentTrack.uri !== uri)) {
+        commit('setIncrement', 1);
+        const play = ({
+                        spotify_uri,
+                        playerInstance: {
+                          _options: {
+                            getOAuthToken,
+                            id,
+                          }
                         }
-                      }
-                    }) => {
-        getOAuthToken(access_token => {
-          fetch(`https://api.spotify.com/v1/me/player/play?device_id=${id}`, {
-            method: 'PUT',
-            body: JSON.stringify({uris: [spotify_uri]}),
-            headers: {
-              'Content-Type': 'application/json',
-              'Authorization': `Bearer ${access_token}`
-            },
+                      }) => {
+          getOAuthToken(access_token => {
+            fetch(`https://api.spotify.com/v1/me/player/play?device_id=${id}`, {
+              method: 'PUT',
+              body: JSON.stringify({uris: [spotify_uri]}),
+              headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${access_token}`
+              },
+            });
           });
+        };
+
+        play({
+          playerInstance: p,
+          spotify_uri: uri,
         });
-      };
-
-      play({
-        playerInstance: p,
-        spotify_uri: uri,
-      });
+      } else {
+        dispatch('togglePlayer');
+      }
     }
-
-
   }
 })
