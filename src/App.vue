@@ -1,12 +1,14 @@
 <template lang="pug">
   #app
     nav.navbar.is-primary(aria-label='main-navigation')
-      img.logo(src="./assets/logo-black.png")
+      img.logo(src="./assets/logo-grey.png")
       .navbar-brand
+        router-link(:to="{name: 'home'}" :class="{'is-active': $route.name === 'home'}").navbar-item.home
+          b-icon(icon="home")
         router-link(:to="{name: 'spotify'}" :class="{'is-active': $route.name === 'spotify'}").navbar-item.spotify
           b-icon(pack="fab" icon="spotify")
         router-link(:to="{name: 'apple-music'}" :class="{'is-active': $route.name === 'apple-music'}").navbar-item.apple
-          b-icon(pack="fab" icon="apple")
+          b-icon(pack="fab" icon="itunes-note")
         router-link(:to="{name: 'settings'}" :class="{'is-active': $route.name === 'settings'}").navbar-item.settings
           b-icon(icon="cog")
     router-view
@@ -27,7 +29,7 @@
   @import './assets/css/style.css';
   @import "~bulma/sass/utilities/_all";
 
-  $primary: #1DB954;
+  $primary: #66cc99;
   $primary-invert: findColorInvert($primary);
   $twitter: #4099FF;
   $twitter-invert: findColorInvert($twitter);

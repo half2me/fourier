@@ -1,5 +1,5 @@
 <template lang="pug">
-  .columns
+  .columns.apple
 
 </template>
 

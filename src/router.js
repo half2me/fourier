@@ -3,6 +3,7 @@ import Router from 'vue-router'
 import Spotify from './views/Spotify.vue'
 import AppleMusic from './views/AppleMusic'
 import Settings from './views/Settings'
+import Home from "./views/Home"
 
 Vue.use(Router)
 
@@ -11,7 +12,8 @@ export default new Router({
   routes: [
     {
       path: '/',
-      redirect: { name: 'spotify' },
+      name: 'home',
+      component: Home
     },
     {
       path: '/spotify',
