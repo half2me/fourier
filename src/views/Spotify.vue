@@ -16,7 +16,7 @@
     import InfoPanel from '@/components/spotify/InfoPanel'
     import {mapActions, mapGetters, mapState} from 'vuex'
     import {requestAccessToken} from '@/spotify'
-    import NowPlaying from "../components/spotify/NowPlaying";
+    import NowPlaying from "@/components/spotify/NowPlaying";
 
     export default {
         name: 'spotify',
@@ -59,3 +59,14 @@
         },
     }
 </script>
+
+<style lang="scss" scoped>
+  .columns {
+    padding-bottom: 100px;
+  }
+
+  .info-panel img, .now-playing img {
+    width: 100%;
+  }
+
+</style>

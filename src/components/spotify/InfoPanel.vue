@@ -15,11 +15,12 @@
         p.album {{ track.track.album.name }}
       .column.is-2
         b-icon(icon="clock")
-        p {{ millis }}
+        p {{ minutes }}
 </template>
 
 <script>
     import {mapActions, mapGetters, mapState} from 'vuex'
+    import config from '../../settings'
 
     export default {
         name: 'InfoPanel',
@@ -41,14 +42,6 @@
                     return this.spotify.getAudioFeaturesForTrack(this.track.track.id)
                 }
             },
-            millis() {
-                return Number(((this.track?.track.duration_ms % 60000) / 1000).toFixed(0)) === 60
-                    ? (Math.floor(this.track?.track.duration_ms / 60000) + 1) + ":00"
-                    : Math.floor(this.track?.track.duration_ms / 60000)
-                    + ":"
-                    + (Number(((this.track?.track.duration_ms % 60000) / 1000).toFixed(0)) < 10 ? "0" : "")
-                    + Number(((this.track?.track.duration_ms % 60000) / 1000).toFixed(0));
-            },
         },
         computed: {
             ...mapState(['spotifyPaused', 'spotifyPlayer', 'currentTrack']),
@@ -57,7 +50,10 @@
                 return this.track?.track.album.images[0]
             },
             qr() {
-                return this.track ? 'https://scannables.scdn.co/uri/plain/svg/000000/white/640/' + this.track.track.uri : null;
+                return this.track ? config.code + this.track.track.uri : null;
+            },
+            minutes() {
+                return config.msToMin(this.track?.track.duration_ms);
             },
         },
         methods: {
@@ -75,5 +71,23 @@
   .spotify-qr:hover {
       opacity: 0.4;
   }
+  p.track {
+    color: #191414;
+    font-weight: bold;
+    font-size: 18px;
+  }
+
+  p.artist {
+    font-size: 16px;
+  }
+
+  p.album {
+    font-size: 14px;
+  }
+  .info-panel {
+    position: relative;
+    height: 75%;
+  }
+
 
 </style>
