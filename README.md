@@ -1,4 +1,5 @@
-# audio-admin
+# [Fourier Audio](https://fourieraudio.co.uk)
+[![Build Status](https://travis-ci.com/half2me/fourier.svg?branch=master)](https://travis-ci.com/half2me/fourier)
 
 ## Project setup
 ```
@@ -22,5 +23,5 @@ npm run test
 
 ### Lints and fixes files
 ```
-npm run lint
+npm run fix
 ```
