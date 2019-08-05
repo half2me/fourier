@@ -1,21 +1,17 @@
 language: node_js
 node_js:
 - node
-cache:
-  directories:
-  - node_modules
-  - ".firebase"
+cache: npm
 install:
 - npm ci
+- npm install -g firebase-tools
 script:
 - npm run build
 - npm run lint
-deploy:
-  skip_cleanup: true
-  on:
-    branch: master
-  provider: firebase
-  token:
-    secure: OC7+Qe45u9/PVjnBocujT3NxDexgW/t6ygz8jpu6HSDD8OgDi9U4kVi49C+NwFz83wLWvDQLHiwQSYkD/iyBY8j8V7jW2wOua4S9iuaDQc7gnpdWsNsXVkacaOqcLLs+idyG0sc7+KWsLLSrOIwxSkTT8bP8j7fPWQwUcVHBYyDunFQfuXr9DMnfIwj0mJLk7Y0eASLWBG2n6LaUW1C3Uf+BTadF8FbcjiRAHkTfrmGV85DBBdra31Z5qoW3vJ3WwFHp1lSUKjQdYJjHyzd6kAirQTQkud+dj+kr6bDTj9R73y6Fwzj9VmARsU6LHgsoRQvFIrA+z5HSCBT/M2FoBn/qUaIQjGMkZSjJ6AthxHn21Nfjiv06Ca53LsibOp3MuI/15RZ1UbhPXaWgr3bGZpWIGfOk7m/d+4mZ9xb0u+7ycFL2z8e8RHiJCsuLeuI+0cEW3+F851eLOmbIW585TMmM4RlimzarC0dsgy3F6gBOHkdtAxwoNnkV+AX8ANxmaXDPt6Haz6YgfLD1Jlf5FyVBovd60mDyq8l2naFDt5cu61Yu84CMz5O/AJhPfBBw/mRpXpxScC9HCKlcm6rqCZ/DAIHoP4DCStHZmPu82xo66UKL1twwPbqIPHuSYPE6yFSxwUVeYREwdcwzX745w9XZtV/cL4+cuKLfSQ3/Q9c=
+after_success:
+  - firebase deploy --token $FIREBASE_TOKEN
 notifications:
   email: false
+
+travis:
+  secure: ToAYWlFGuwLDcGY7+qUHctB6zJiQMFqOXhOIvwrFL+UuPikd8qDUvq7Z7FCyzKIQ5AH2n7/gk4KdWiu1GAKieYj7Yh7eFWwXcHfVxQAQK2FGW7+zfZYLC4GAO0KHagyRJVnk5VvtzL4eITaL+hmZeagvHy9ZUBtjmLdWFRplLTubGmzG9rPxDuBxOyrcHeYQQp0xodBui47s4cCswcpBEcEHAdjllIbID1L4sDK5vtI5HMmduhZWkyvIaT0z0qtBxv7Y53QMM0PxGE55FHVaffih0SH8T5YVv5AFl3bOyF+OKKBxqGy71pjsmzvjcYjfWNTJmN+ocGiCdmAqNoSlVvrexa81YFKBkmNLis5JlX/g3AbvP0UyjgIDKVHgLwgyxaRBWCzD3VrYEhnIwmfh3N/2NFpgU9IjfR5/Vri+gxtDkI1uSTimG5Zh9exlNcgusGbsk5U8DUWdJQtPppdB3/BGs99yDBYrM7IEc6TMN00wrIUhbmzg79o52s822D0fvhIYqsEGKjez16zwbeSKjMbaekn5koprXuYOpBejTwhZMPOMC+5YeoqAIpm57+E7RCb03CITiE7xjj8eM96bGkmGC+2glvMkQnCr7gUrvkOpK6OZBBRZBDSRcDbjt+K7NcHENr0UjpLdHMTJsp+zOyZWRlNA0KI8BQ5wElT/Z8w=
