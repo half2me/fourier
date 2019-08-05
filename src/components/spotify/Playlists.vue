@@ -14,50 +14,50 @@
 </template>
 
 <script>
-  import {mapGetters} from 'vuex'
+import {mapGetters} from 'vuex'
 
-  export default {
-    name: 'Playlists',
-    model: {
-      prop: 'selected',
-      event: 'change'
+export default {
+  name: 'Playlists',
+  model: {
+    prop: 'selected',
+    event: 'change',
+  },
+  props: {
+    selected: {
+      type: Object,
+      default: () => null,
     },
-    props: {
-      selected: {
-        type: Object,
-        default: () => null,
-      }
-    },
-    asyncComputed: {
-      playlists: {
-        get() {
-          return this.spotify.getUserPlaylists().then(r => r.items);
-        },
-        default: [],
-      }
-    },
-    computed: {
-      ...mapGetters(['spotify']),
-      shownPlaylists() {
-        return this.playlists.filter(
-          p => p.name.toLowerCase().includes(this.search.toLowerCase())
-        )
+  },
+  data() {
+    return {
+      search: '',
+    }
+  },
+  asyncComputed: {
+    playlists: {
+      get() {
+        return this.spotify.getUserPlaylists().then(r => r.items);
       },
-      selectedPlaylist: {
-        get() {
-          return this.selected
-        },
-        set(val) {
-          this.$emit('change', val)
-        },
+      default: [],
+    },
+  },
+  computed: {
+    ...mapGetters(['spotify']),
+    shownPlaylists() {
+      return this.playlists.filter(
+        p => p.name.toLowerCase().includes(this.search.toLowerCase())
+      )
+    },
+    selectedPlaylist: {
+      get() {
+        return this.selected
+      },
+      set(val) {
+        this.$emit('change', val)
       },
     },
-    data() {
-      return {
-        search: '',
-      }
-    },
-    methods: {
-    },
-  }
+  },
+  methods: {
+  },
+}
 </script>

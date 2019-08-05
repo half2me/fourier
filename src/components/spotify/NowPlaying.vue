@@ -39,40 +39,40 @@
 </template>
 
 <script>
-    import {mapActions, mapGetters, mapState} from 'vuex'
-    import {formatMs} from "@/filters";
+import {mapActions, mapGetters, mapState} from 'vuex'
+import {formatMs} from '@/filters';
 
-    export default {
-        name: "NowPlaying",
-        filters: {
-            formatMs,
-        },
-        props: {
-            track: {
-                type: Object,
-                default: () => null,
-            },
-        },
-        asyncComputed: {
-            audioAnalysis() {
-                if (this.track) {
-                    return this.spotify.getAudioAnalysisForTrack(this.track.track.id)
-                }
-            },
-            audioFeatures() {
-                if (this.track) {
-                    return this.spotify.getAudioFeaturesForTrack(this.track.track.id)
-                }
-            },
-        },
-        computed: {
-            ...mapState(['spotifyPaused', 'spotifyPlayer', 'currentTrack', 'position']),
-            ...mapGetters(['spotify']),
-        },
-        methods: {
-            ...mapActions(['togglePlayer', 'next', 'prev', 'seek', 'minimizePlayer']),
-        },
-    }
+export default {
+  name: 'NowPlaying',
+  filters: {
+    formatMs,
+  },
+  props: {
+    track: {
+      type: Object,
+      default: () => null,
+    },
+  },
+  asyncComputed: {
+    audioAnalysis() {
+      if (this.track) {
+        return this.spotify.getAudioAnalysisForTrack(this.track.track.id)
+      }
+    },
+    audioFeatures() {
+      if (this.track) {
+        return this.spotify.getAudioFeaturesForTrack(this.track.track.id)
+      }
+    },
+  },
+  computed: {
+    ...mapState(['spotifyPaused', 'spotifyPlayer', 'currentTrack', 'position']),
+    ...mapGetters(['spotify']),
+  },
+  methods: {
+    ...mapActions(['togglePlayer', 'next', 'prev', 'seek', 'minimizePlayer']),
+  },
+}
 </script>
 
 <style lang="scss" scoped>

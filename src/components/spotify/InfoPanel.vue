@@ -19,52 +19,52 @@
 </template>
 
 <script>
-    import {mapActions, mapGetters, mapState} from 'vuex'
-    import settings from '@/settings'
-    import {formatMs} from "@/filters";
+import {mapActions, mapGetters, mapState} from 'vuex'
+import settings from '@/settings'
+import {formatMs} from '@/filters';
 
-    export default {
-        name: 'InfoPanel',
-        filters: {
-            formatMs,
-        },
-        props: {
-            track: {
-                type: Object,
-                default: () => null,
-            },
-            context: {
-                type: Object,
-                default: () => null,
-            }
-        },
-        asyncComputed: {
-        },
-        computed: {
-            ...mapState(['spotifyPaused', 'spotifyPlayer', 'currentTrack']),
-            ...mapGetters(['spotify']),
-            albumCover() {
-                return this.track?.track.album.images[0]
-            },
-            qr() {
-                return this.track ? settings.code + this.track.track.uri : null;
-            },
-        },
-        methods: {
-            ...mapActions(['togglePlayer']),
-            async changeSong(uri) {
-                if((!this.spotifyPaused && this.currentTrack.uri !== uri) || this.currentTrack.uri !== uri) {
-                    if (this.context) {
-                        await this.spotify.play({context_uri: this.context?.uri, offset: {uri: uri}})
-                    } else {
-                        await this.spotify.play({uris: [uri]})
-                    }
-                } else {
-                    await this.spotifyPlayer.togglePlay();
-                }
-            },
-        },
-    }
+export default {
+  name: 'InfoPanel',
+  filters: {
+    formatMs,
+  },
+  props: {
+    track: {
+      type: Object,
+      default: () => null,
+    },
+    context: {
+      type: Object,
+      default: () => null,
+    },
+  },
+  asyncComputed: {
+  },
+  computed: {
+    ...mapState(['spotifyPaused', 'spotifyPlayer', 'currentTrack']),
+    ...mapGetters(['spotify']),
+    albumCover() {
+      return this.track?.track.album.images[0]
+    },
+    qr() {
+      return this.track ? settings.code + this.track.track.uri : null;
+    },
+  },
+  methods: {
+    ...mapActions(['togglePlayer']),
+    async changeSong(uri) {
+      if((!this.spotifyPaused && this.currentTrack.uri !== uri) || this.currentTrack.uri !== uri) {
+        if (this.context) {
+          await this.spotify.play({context_uri: this.context?.uri, offset: {uri: uri}})
+        } else {
+          await this.spotify.play({uris: [uri]})
+        }
+      } else {
+        await this.spotifyPlayer.togglePlay();
+      }
+    },
+  },
+}
 </script>
 <style lang="scss" scoped>
   .imgQr {

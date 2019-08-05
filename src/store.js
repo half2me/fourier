@@ -2,7 +2,7 @@ import Vue from 'vue'
 import Vuex from 'vuex'
 import Spotify from 'spotify-web-api-js'
 import {requestAccessToken as getSpotifyAT} from '@/spotify'
-import {loadSpotifyPlayerSDK} from "./spotify"
+import {loadSpotifyPlayerSDK} from './spotify'
 import config from '@/settings'
 
 Vue.use(Vuex);
@@ -40,7 +40,7 @@ export default new Vuex.Store({
     },
     setSpotifyPlayer: (state, name = config.name) => state.spotifyPlayer = new window.Spotify.Player({
       name,
-      getOAuthToken: f => f(state.spotify.getAccessToken())
+      getOAuthToken: f => f(state.spotify.getAccessToken()),
     }),
     setSpotifyPaused: (state, val) => {
       state.spotifyPaused = val;
@@ -80,5 +80,5 @@ export default new Vuex.Store({
       });
       return p.connect();
     },
-  }
+  },
 })

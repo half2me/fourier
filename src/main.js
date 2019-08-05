@@ -8,7 +8,7 @@ import '@fortawesome/fontawesome-free/css/all.css'
 
 Vue.use(AsyncComputed);
 Vue.use(Buefy, {
-  defaultIconPack: "fas"
+  defaultIconPack: 'fas',
 });
 
 Vue.config.productionTip = false;

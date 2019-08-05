@@ -1,0 +1,27 @@
+---
+root: true
+env:
+  node: true
+extends:
+  - plugin:vue/recommended
+  - eslint:recommended
+parserOptions:
+  parser: babel-eslint
+rules:
+  indent:
+    - error
+    - 2
+  eqeqeq:
+    - error
+    - always
+    - null: ignore
+  curly: error
+  quotes:
+    - error
+    - single
+  comma-dangle:
+    - error
+    - always-multiline
+  func-call-spacing:
+    - error
+    - never

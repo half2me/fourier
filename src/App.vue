@@ -20,19 +20,19 @@
 </template>
 
 <script>
-    import config from "./settings"
+import config from './settings'
 
-    export default {
-        name: 'App',
-        data() {
-            return {
-                config,
-            }
-        },
-        mounted() {
-        },
-        methods: {},
+export default {
+  name: 'App',
+  data() {
+    return {
+      config,
     }
+  },
+  mounted() {
+  },
+  methods: {},
+}
 
 
 </script>
