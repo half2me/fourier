@@ -38,48 +38,15 @@
 </script>
 
 <style lang="scss">
-  @import "~bulma/sass/utilities/_all";
-
-  $primary: #66cc99;
-  $primary-invert: findColorInvert($primary);
-  $twitter: #4099FF;
-  $twitter-invert: findColorInvert($twitter);
-
-  // Setup $colors to use as bulma classes (e.g. 'is-twitter')
-  $colors: (
-    "white": ($white, $black),
-    "black": ($black, $white),
-    "light": ($light, $light-invert),
-    "dark": ($dark, $dark-invert),
-    "primary": ($primary, $primary-invert),
-    "info": ($info, $info-invert),
-    "success": ($success, $success-invert),
-    "warning": ($warning, $warning-invert),
-    "danger": ($danger, $danger-invert),
-    "twitter": ($twitter, $twitter-invert)
-  );
-
-  // Links
-  $link: $primary;
-  $link-invert: $primary-invert;
-  $link-focus-border: $primary;
+  @import url('https://fonts.googleapis.com/css?family=Darker+Grotesque|Barlow|Staatliches&display=swap');
 
   // Import Bulma and Buefy styles
   @import "~bulma";
   @import "~buefy/src/scss/buefy";
-  @import url('https://fonts.googleapis.com/css?family=Darker+Grotesque|Barlow|Staatliches&display=swap');
 
   .tooltip.is-slow:not([data-label=""]):hover:before,
   .tooltip.is-slow:not([data-label=""]):hover:after {
     transition-delay: 0.5s;
-  }
-
-
-  html, body {
-    font-family: 'Barlow', sans-serif;
-    margin: 0;
-    padding: 0;
-    border: 0;
   }
 
   #app {
@@ -91,9 +58,6 @@
     padding-bottom: 100px;
   }
 
-  #app, p {
-    font-family: 'Barlow', sans-serif;
-  }
   nav {
     height: 50px;
     background-color: #1DB954;

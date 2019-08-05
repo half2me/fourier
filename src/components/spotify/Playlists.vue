@@ -4,13 +4,13 @@
       b-field(label="Playlists").has-text-centered
         b-input(v-model="search" placeholder="Search for a playlist" icon="search")
     b-table(:data="shownPlaylists" narrowed selectable :selected.sync="selectedPlaylist" :loading="$asyncComputed.playlists.updating")
-      template(slot-scope="props")
+      template(slot-scope="{row: {name, tracks}}")
         b-table-column(field="name")
             p
-              b {{ props.row.name }}
+              b {{ name }}
             b-taglist(attached=true)
               b-tag(type="is-dark") Tracks
-              b-tag(type="is-primary") {{ props.row.tracks.total }}
+              b-tag(type="is-primary") {{ tracks.total }}
 </template>
 
 <script>

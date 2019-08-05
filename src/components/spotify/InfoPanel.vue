@@ -15,16 +15,19 @@
         p.album {{ track.track.album.name }}
       .column.is-2
         b-icon(icon="clock")
-        p {{ minutes }}
+        p {{ track.track.duration_ms | formatMs }}
 </template>
 
 <script>
     import {mapActions, mapGetters, mapState} from 'vuex'
-    import config from '@/utilities'
-    import code from '@/settings'
+    import settings from '@/settings'
+    import {formatMs} from "@/filters";
 
     export default {
         name: 'InfoPanel',
+        filters: {
+            formatMs,
+        },
         props: {
             track: {
                 type: Object,
@@ -40,10 +43,7 @@
                 return this.track?.track.album.images[0]
             },
             qr() {
-                return this.track ? code.code + this.track.track.uri : null;
-            },
-            minutes() {
-                return config.msToMin(this.track?.track.duration_ms);
+                return this.track ? settings.code + this.track.track.uri : null;
             },
         },
         methods: {
@@ -62,17 +62,11 @@
       opacity: 0.4;
   }
   p.track {
-    color: #191414;
     font-weight: bold;
-    font-size: 18px;
-  }
-
-  p.artist {
-    font-size: 16px;
   }
 
   p.album {
-    font-size: 14px;
+    font-size: 0.8rem;
   }
   .info-panel {
     position: relative;

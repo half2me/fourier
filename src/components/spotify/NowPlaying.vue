@@ -16,11 +16,11 @@
             b-icon(icon="times")
     .columns
       .column.is-2.from
-        p {{ minutes(position) }}
+        p {{ position | formatMs }}
       .column.is-8
         input(type="range" :max="currentTrack.duration_ms" :value="position" @change="e => seek(e.target.value)").playingPos
       .column.is-2
-        p {{ minutes(currentTrack.duration_ms) }}
+        p {{ currentTrack.duration_ms | formatMs }}
     .columns.player
       .column.is-4
         a(@click="prev")
@@ -40,10 +40,13 @@
 
 <script>
     import {mapActions, mapGetters, mapState} from 'vuex'
-    import config from '@/utilities'
+    import {formatMs} from "@/filters";
 
     export default {
         name: "NowPlaying",
+        filters: {
+            formatMs,
+        },
         props: {
             track: {
                 type: Object,
@@ -68,9 +71,6 @@
         },
         methods: {
             ...mapActions(['togglePlayer', 'next', 'prev', 'disconnectSpotifyPlayer', 'seek', 'minimizePlayer']),
-            minutes(val) {
-                return config.msToMin(val);
-            },
         },
     }
 </script>
@@ -78,7 +78,7 @@
 <style lang="scss" scoped>
 
   .now-playing {
-    background-color: #191414;
+    background-color: $spotify-invert;
     z-index: 999;
     position: absolute;
     bottom: 0;
@@ -87,11 +87,11 @@
   }
 
   .now-playing p {
-    color: white;
+    color: $white;
   }
 
   .player a {
-    color: white;
+    color: $white;
   }
 
   .columns.now-play, .columns.player {
@@ -99,7 +99,7 @@
   }
 
   .player a:hover {
-    color: #1DB954;
+    color: $spotify;
   }
 
   .trackName {
@@ -115,7 +115,7 @@
     appearance: none;
     width: 100%; /* Full-width */
     height: 7px; /* Specified height */
-    background: #333; /* Grey background */
+    background: $grey; /* Grey background */
     outline: none; /* Remove outline */
     opacity: 0.7; /* Set transparency (for mouse-over effects on hover) */
     -webkit-transition: .2s; /* 0.2 seconds transition on hover */
@@ -127,7 +127,7 @@
 
     -webkit-appearance: none; /* Override default look */
     appearance: none;
-    box-shadow: -100vw 0 0 100vw #1DB954;
+    box-shadow: -100vw 0 0 100vw $spotify;
     overflow: hidden;
     width: 7px; /* Set a specific slider handle width */
     height: 7px; /* Slider handle height */
@@ -139,12 +139,12 @@
     border-radius: 5px;
     width: 10px; /* Set a specific slider handle width */
     height: 10px; /* Slider handle height */
-    background: #1DB954; /* Green background */
+    background: $spotify; /* Green background */
     cursor: pointer; /* Cursor on hover */
   }
   .player {
     text-align: center;
-    background-color: #191414;
+    background-color: $spotify-invert;
     bottom: 0;
     width: 100%;
   }
