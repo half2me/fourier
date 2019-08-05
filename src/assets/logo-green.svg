@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="1024" height="1024" viewBox="0 0 1024 1024">
+  <defs>
+    <style>
+      .cls-1 {
+        filter: url(#filter);
+      }
+
+      .cls-2 {
+        fill: #191414;
+      }
+    </style>
+    <filter id="filter" filterUnits="userSpaceOnUse">
+      <feFlood result="flood" flood-color="#6c9"/>
+      <feComposite result="composite" operator="in" in2="SourceGraphic"/>
+      <feBlend result="blend" in2="SourceGraphic"/>
+    </filter>
+  </defs>
+  <g class="cls-1">
+    <rect id="Rounded_Rectangle_5" data-name="Rounded Rectangle 5" class="cls-2" x="449" y="42" width="126" height="940" rx="28.5" ry="28.5"/>
+    <rect id="Rounded_Rectangle_3" data-name="Rounded Rectangle 3" class="cls-2" x="41" y="302" width="126" height="420" rx="30" ry="30"/>
+    <rect id="Rounded_Rectangle_4" data-name="Rounded Rectangle 4" class="cls-2" x="245" y="164" width="126" height="696" rx="30" ry="30"/>
+    <rect id="Rounded_Rectangle_3_copy" data-name="Rounded Rectangle 3 copy" class="cls-2" x="857" y="302" width="126" height="420" rx="30" ry="30"/>
+    <rect id="Rounded_Rectangle_4_copy" data-name="Rounded Rectangle 4 copy" class="cls-2" x="653" y="164" width="126" height="696" rx="30" ry="30"/>
+  </g>
+</svg>

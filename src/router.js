@@ -1,7 +1,7 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 import Spotify from './views/Spotify.vue'
-import AppleMusic from './views/AppleMusic'
+import Home from './views/Home'
 
 Vue.use(Router)
 
@@ -10,25 +10,21 @@ export default new Router({
   routes: [
     {
       path: '/',
-      redirect: { name: 'spotify' },
+      name: 'home',
+      component: Home,
     },
     {
       path: '/spotify',
       name: 'spotify',
-      component: Spotify
-    },
-    {
-      path: '/apple-music',
-      name: 'apple-music',
-      component: AppleMusic,
+      component: Spotify,
     },
     {
       path: '/spotify/auth-callback',
       name: 'authCallback',
-      component: () => import(/* webpackChunkName: "callback" */ './views/AuthCallback')
+      component: () => import(/* webpackChunkName: "callback" */ './views/AuthCallback'),
     },
     {
       path: '*',
-      component: () => import(/* webpackChunkName: "callback" */ './views/NotFound') }
-  ]
+      component: () => import(/* webpackChunkName: "callback" */ './views/NotFound') },
+  ],
 })

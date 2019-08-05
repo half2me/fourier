@@ -1,48 +1,72 @@
 <template lang="pug">
   .columns
-    .column.is-one-quarter
+    .column
       playlists(v-model="selectedPlaylist")
-    .column.is-one-third
+    .column
       tracks(:playlist="selectedPlaylist" v-model="selectedTrack")
     .column
-      info-panel(:track="selectedTrack")
+      info-panel(:track="selectedTrack" :context="selectedPlaylist")
+      br
+      now-playing(:track="selectedTrack")
 </template>
 
 <script>
-  import Playlists from '@/components/spotify/Playlists'
-  import Tracks from '@/components/spotify/Tracks'
-  import InfoPanel from '@/components/spotify/InfoPanel'
-  import {mapGetters} from 'vuex'
-  import {requestAccessToken} from '@/spotify'
+import Playlists from '@/components/spotify/Playlists'
+import Tracks from '@/components/spotify/Tracks'
+import InfoPanel from '@/components/spotify/InfoPanel'
+import {mapActions, mapGetters, mapState} from 'vuex'
+import {requestAccessToken} from '@/spotify'
+import NowPlaying from '@/components/spotify/NowPlaying';
 
-  export default {
-    name: 'spotify',
-    components: {
-      Playlists, Tracks, InfoPanel
-    },
-    data() {
-      return {
-        selectedPlaylist: null,
-        selectedTrack: null,
-      }
-    },
-    asyncComputed: {
-      devices: {
-        get() {
-          return this.spotify.getMyDevices().catch(e => {
-            if (e.status === 401) {
-              requestAccessToken()
-            }
-          }).then(r => r.devices)
-        },
-        default: [],
+export default {
+  name: 'Spotify',
+  components: {
+    NowPlaying,
+    Playlists, Tracks, InfoPanel,
+  },
+  data() {
+    return {
+      selectedPlaylist: null,
+      selectedTrack: null,
+    }
+  },
+  asyncComputed: {
+    devices: {
+      get() {
+        return this.spotify.getMyDevices().catch(e => {
+          if (e.status === 401) {
+            requestAccessToken()
+          }
+        }).then(r => r.devices)
       },
-      playbackState() {
-        return this.spotify.getMyCurrentPlaybackState();
-      },
+      default: [],
     },
-    computed: {
-      ...mapGetters(['spotify']),
+    playbackState() {
+      return this.spotify.getMyCurrentPlaybackState();
     },
-  }
+    async player() {
+      await this.initSpotifyPlayer();
+      await this.connectSpotifyPlayer();
+      return this.spotifyPlayer;
+    },
+  },
+  computed: {
+    ...mapGetters(['spotify', 'spotifyAccessToken']),
+    ...mapState(['spotifyPlayer']),
+  },
+  methods: {
+    ...mapActions(['initSpotifyPlayer', 'connectSpotifyPlayer']),
+  },
+}
 </script>
+
+<style lang="scss" scoped>
+  .columns {
+    padding-bottom: 100px;
+  }
+
+  .info-panel img, .now-playing img {
+    width: 100%;
+  }
+
+</style>

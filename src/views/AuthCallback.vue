@@ -5,18 +5,18 @@
 </template>
 
 <script>
-  import {mapMutations} from 'vuex'
-  export default {
-    name: 'AuthCallback',
-    methods: {
-      ...mapMutations(['updateSpotifyToken']),
-    },
-    mounted() {
-      const params = this.$route.hash.substr(1).split('&').reduce(
-        (prev, item) => ({[item.split('=')[0]]: item.split('=')[1], ...prev}), {},
-      );
-      this.updateSpotifyToken(params.access_token);
-      this.$router.push('/');
-    },
-  }
+import {mapMutations} from 'vuex'
+export default {
+  name: 'AuthCallback',
+  mounted() {
+    const params = this.$route.hash.substr(1).split('&').reduce(
+      (prev, item) => ({[item.split('=')[0]]: item.split('=')[1], ...prev}), {},
+    );
+    this.updateSpotifyToken(params.access_token);
+    this.$router.push({name: 'spotify'});
+  },
+  methods: {
+    ...mapMutations(['updateSpotifyToken']),
+  },
+}
 </script>

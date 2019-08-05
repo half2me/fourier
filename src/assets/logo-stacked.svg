@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="772" height="1024" viewBox="0 0 772 1024">
+  <defs>
+    <style>
+      .cls-1, .cls-2 {
+        fill: #414141;
+      }
+
+      .cls-2 {
+        font-size: 250px;
+        font-family: Staatliches;
+      }
+    </style>
+  </defs>
+  <rect id="Rounded_Rectangle_1" data-name="Rounded Rectangle 1" class="cls-1" x="28" y="229" width="96" height="319" rx="20" ry="20"/>
+  <rect id="Rounded_Rectangle_1_copy" data-name="Rounded Rectangle 1 copy" class="cls-1" x="183" y="123" width="96" height="531" rx="20" ry="20"/>
+  <rect id="Rounded_Rectangle_1_copy_2" data-name="Rounded Rectangle 1 copy 2" class="cls-1" x="338" y="30" width="96" height="717" rx="20" ry="20"/>
+  <rect id="Rounded_Rectangle_1_copy_3" data-name="Rounded Rectangle 1 copy 3" class="cls-1" x="494" y="123" width="96" height="531" rx="20" ry="20"/>
+  <rect id="Rounded_Rectangle_1_copy_4" data-name="Rounded Rectangle 1 copy 4" class="cls-1" x="649" y="229" width="96" height="319" rx="20" ry="20"/>
+  <text id="fOurier" class="cls-2" transform="translate(24.11 990.431)">fOurier</text>
+</svg>
