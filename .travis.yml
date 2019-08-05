@@ -1,15 +1,20 @@
 language: node_js
 node_js:
-  - node
+- node
 cache:
   directories:
-    - node_modules
+  - node_modules
+  - ".firebase"
 install:
-  - npm run ci
+- npm run ci
 script:
-  - npm run build
-  - npm run lint
+- npm run build
+- npm run lint
 deploy:
+  on:
+    branch: master
   provider: firebase
   token:
-    secure:
+    secure: SbYcBElaguRNlHnkKj1btq30UaJ86MzC5nNK6zQhCrFNQlMEUC8fshRUPxW140V+OY8IHMtycAfMVsagwYNYspzLNJP9n74OAS9SDtpA217bNDo9T7nKyLdPTjdjXgCgBYBxaY+W6wr5M5P3Z4n0yutLlXC4q5FM4iy+vhsp/zMUHpi5i4C0IUi/MK2BnEEv53tgVVfkhTpHISzNzRuk0/ky7xOm1Zi37uzNLmXIaiJGeSqlqWeI0qLhCPrKMCdscV9EgHKdIKxHwkaDxiR+wkcQIOCEMj5g+aremG0ftJeKobx/VeS9jLVnB2rx7022D2FftF76S4SyDt9PI27xp799fx/kT1378TyTbXcpsgTqgk4TS8baHKXKRf6ENd6tJR50Z5leXScXFb8tyZDXg9KrPPG0Rug/wWTG91qlKeAxUub2k5Uu0IQKI6yejU64H3aW3xkMypHh/MHbXcSlqMLj3ciLRT2Ql6DwMmJ4A/VM3fo1L7FjpqI9nfWVSoYE0DobR3nw+W+vPXWdyDdkwFGQWJn2jr2WM9AD1cIZxt0pFboP6OeAE9Cpmp39p9yDuI4jAOVyq4Btg+7YMEwYnW97q1lCR/ZzK0pq+gB0cijo78b+3GY1QbMRKOh/04zY7t3pHYRRlSZJdH77l4XAyV6RivAIfDVodxaeGuEFzaE=
+notifications:
+  email: false
