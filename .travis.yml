@@ -1,0 +1,15 @@
+language: node_js
+node_js:
+  - node
+cache:
+  directories:
+    - node_modules
+install:
+  - npm run ci
+script:
+  - npm run build
+  - npm run lint
+deploy:
+  provider: firebase
+  token:
+    secure:
