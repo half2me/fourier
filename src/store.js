@@ -69,63 +69,16 @@ export default new Vuex.Store({
       }
     },
     connectSpotifyPlayer: ({dispatch, commit, state: {spotifyPlayer: p}}) => {
-      p.addListener('player_state_changed', state => {
-        if (state == null) {
-          var test = document.getElementsByClassName("now-playing");
-          test[0].style.display = "none";
+      p.addListener('player_state_changed', async pState => {
+        if (pState) {
+          const {paused, position, track_window: {current_track}} = pState;
+          commit('setSpotifyPaused', paused);
+          commit('setCurrentTrack', current_track);
+          commit('setPosition', position);
+          await dispatch('pollSpotifyPosition');
         }
       });
-      p.addListener('player_state_changed', ({paused}) => {
-        commit('setSpotifyPaused', paused);
-        return dispatch('pollSpotifyPosition');
-      });
-      p.addListener('player_state_changed', state => commit('setCurrentTrack', state.track_window.current_track));
-      p.addListener('player_state_changed', state => commit('setPosition', state.position));
-      return p.connect()
+      return p.connect();
     },
-    disconnectSpotifyPlayer: ({state: {spotifyPlayer: p}}) => {
-      var test = document.getElementsByClassName("now-playing");
-      test[0].style.display = "none";
-      return p.disconnect()
-    },
-    togglePlayer: ({state: {spotifyPlayer: p}}) => p.togglePlay(),
-    next: ({state: {spotifyPlayer: p}}) => p.nextTrack(),
-    prev: ({state: {spotifyPlayer: p}}) => p.previousTrack(),
-    seek: ({state: {spotifyPlayer: p}}, position_ms) => p.seek(position_ms),
-    minimizePlayer: () => {
-      var test = document.getElementsByClassName("now-playing");
-      test[0].style.display = "none";
-    },
-    changeSong: ({dispatch, state: {spotifyPlayer: p, spotifyPaused, currentTrack}}, uri) => {
-      if ((!spotifyPaused && currentTrack.uri !== uri) || currentTrack.uri !== uri) {
-        const play = ({
-                        spotify_uri,
-                        playerInstance: {
-                          _options: {
-                            getOAuthToken,
-                            id,
-                          }
-                        }
-                      }) => {
-          getOAuthToken(access_token => {
-            fetch(`https://api.spotify.com/v1/me/player/play?device_id=${id}`, {
-              method: 'PUT',
-              body: JSON.stringify({uris: [spotify_uri]}),
-              headers: {
-                'Content-Type': 'application/json',
-                'Authorization': `Bearer ${access_token}`
-              },
-            });
-          });
-        };
-
-        play({
-          playerInstance: p,
-          spotify_uri: uri,
-        });
-      } else {
-        dispatch('togglePlayer');
-      }
-    }
   }
 })

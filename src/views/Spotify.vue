@@ -5,7 +5,7 @@
     .column
       tracks(:playlist="selectedPlaylist" v-model="selectedTrack")
     .column
-      info-panel(:track="selectedTrack")
+      info-panel(:track="selectedTrack" :context="selectedPlaylist")
       br
       now-playing(:track="selectedTrack")
 </template>

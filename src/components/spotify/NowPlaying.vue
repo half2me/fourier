@@ -12,24 +12,24 @@
         .column.is-2
           a(@click="minimizePlayer")
             b-icon(icon="minus")
-          a(@click="disconnectSpotifyPlayer")
+          a(@click="spotifyPlayer.disconnect()")
             b-icon(icon="times")
     .columns
       .column.is-2.from
         p {{ position | formatMs }}
       .column.is-8
-        input(type="range" :max="currentTrack.duration_ms" :value="position" @change="e => seek(e.target.value)").playingPos
+        input(type="range" :max="currentTrack.duration_ms" :value="position" @change="e => spotifyPlayer.seek(e.target.value)").playingPos
       .column.is-2
         p {{ currentTrack.duration_ms | formatMs }}
     .columns.player
       .column.is-4
-        a(@click="prev")
+        a(@click="spotifyPlayer.previousTrack()")
           b-icon(icon="backward")
       .column.is-4
-        a(@click="togglePlayer")
+        a(@click="spotifyPlayer.togglePlay()")
           b-icon(:icon="spotifyPaused ? 'play' : 'pause'")
       .column.is-4
-        a(@click="next")
+        a(@click="spotifyPlayer.nextTrack()")
           b-icon(icon="forward")
     .columns
       .column.is-1.is-offset-1
@@ -70,7 +70,7 @@
             ...mapGetters(['spotify']),
         },
         methods: {
-            ...mapActions(['togglePlayer', 'next', 'prev', 'disconnectSpotifyPlayer', 'seek', 'minimizePlayer']),
+            ...mapActions(['togglePlayer', 'next', 'prev', 'seek', 'minimizePlayer']),
         },
     }
 </script>

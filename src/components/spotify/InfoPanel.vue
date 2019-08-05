@@ -33,6 +33,10 @@
                 type: Object,
                 default: () => null,
             },
+            context: {
+                type: Object,
+                default: () => null,
+            }
         },
         asyncComputed: {
         },
@@ -47,7 +51,18 @@
             },
         },
         methods: {
-            ...mapActions(['togglePlayer', 'changeSong'])
+            ...mapActions(['togglePlayer']),
+            async changeSong(uri) {
+                if((!this.spotifyPaused && this.currentTrack.uri !== uri) || this.currentTrack.uri !== uri) {
+                    if (this.context) {
+                        await this.spotify.play({context_uri: this.context?.uri, offset: {uri: uri}})
+                    } else {
+                        await this.spotify.play({uris: [uri]})
+                    }
+                } else {
+                    await this.spotifyPlayer.togglePlay();
+                }
+            },
         },
     }
 </script>

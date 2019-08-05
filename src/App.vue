@@ -44,10 +44,12 @@
   @import "~bulma";
   @import "~buefy/src/scss/buefy";
 
-  .tooltip.is-slow:not([data-label=""]):hover:before,
-  .tooltip.is-slow:not([data-label=""]):hover:after {
-    transition-delay: 0.5s;
+  #app, .columns, .column, .playlists, .tracks {
+    height: 100%;
   }
+
+</style>
+<style lang="scss" scoped>
 
   #app {
     position: relative;
@@ -57,7 +59,6 @@
   .page-container {
     padding-bottom: 100px;
   }
-
   nav {
     height: 50px;
     background-color: #1DB954;
@@ -82,7 +83,7 @@
   }
 
   .is-active {
-    color: #191414 !important;
+    color: $spotify-invert !important;
   }
 
   footer {
@@ -92,11 +93,7 @@
     text-align: center;
     width: 100%;
   }
-  #app, .columns, .column, .playlists, .tracks {
-    height: 100%;
-  }
   .top {
-     height: 10%;
-   }
-
+    height: 10%;
+  }
 </style>
