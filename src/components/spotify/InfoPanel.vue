@@ -20,7 +20,8 @@
 
 <script>
     import {mapActions, mapGetters, mapState} from 'vuex'
-    import config from '../../settings'
+    import config from '@/utilities'
+    import code from '@/settings'
 
     export default {
         name: 'InfoPanel',
@@ -31,17 +32,6 @@
             },
         },
         asyncComputed: {
-
-            audioAnalysis() {
-                if (this.track) {
-                    return this.spotify.getAudioAnalysisForTrack(this.track.track.id)
-                }
-            },
-            audioFeatures() {
-                if (this.track) {
-                    return this.spotify.getAudioFeaturesForTrack(this.track.track.id)
-                }
-            },
         },
         computed: {
             ...mapState(['spotifyPaused', 'spotifyPlayer', 'currentTrack']),
@@ -50,7 +40,7 @@
                 return this.track?.track.album.images[0]
             },
             qr() {
-                return this.track ? config.code + this.track.track.uri : null;
+                return this.track ? code.code + this.track.track.uri : null;
             },
             minutes() {
                 return config.msToMin(this.track?.track.duration_ms);

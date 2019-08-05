@@ -3,7 +3,7 @@
     .mainCenter.white-fade
       .columns
         .column.is-5
-          img(src="@/assets/logo-stacked.png" width="75%")
+          img(src="@/assets/logo-stacked.svg" width="75%")
           p.subtitle Your audio admin tool
         .column.is-7
           p.welcome Unleash the power of

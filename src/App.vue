@@ -67,14 +67,13 @@
   // Import Bulma and Buefy styles
   @import "~bulma";
   @import "~buefy/src/scss/buefy";
+  @import url('https://fonts.googleapis.com/css?family=Darker+Grotesque|Barlow|Staatliches&display=swap');
 
   .tooltip.is-slow:not([data-label=""]):hover:before,
   .tooltip.is-slow:not([data-label=""]):hover:after {
     transition-delay: 0.5s;
   }
-  @import url('https://fonts.googleapis.com/css?family=Roboto+Condensed');
-  @import url('https://fonts.googleapis.com/css?family=Darker+Grotesque&display=swap');
-  @import url('https://fonts.googleapis.com/css?family=Barlow|Staatliches&display=swap');
+
 
   html, body {
     font-family: 'Barlow', sans-serif;

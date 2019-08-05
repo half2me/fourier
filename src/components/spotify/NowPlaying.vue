@@ -10,7 +10,7 @@
           p.artistName {{ currentTrack.artists.map(a => a.name).join(', ') }}
           p {{ currentTrack.album.name}}
         .column.is-2
-          a(@click="minimisePlayer")
+          a(@click="minimizePlayer")
             b-icon(icon="minus")
           a(@click="disconnectSpotifyPlayer")
             b-icon(icon="times")
@@ -18,7 +18,7 @@
       .column.is-2.from
         p {{ minutes(position) }}
       .column.is-8
-        input(type="range" :max="currentTrack.duration_ms" :value="position" @change="e => seek(e.target.value)")
+        input(type="range" :max="currentTrack.duration_ms" :value="position" @change="e => seek(e.target.value)").playingPos
       .column.is-2
         p {{ minutes(currentTrack.duration_ms) }}
     .columns.player
@@ -40,7 +40,7 @@
 
 <script>
     import {mapActions, mapGetters, mapState} from 'vuex'
-    import config from '../../settings'
+    import config from '@/utilities'
 
     export default {
         name: "NowPlaying",
@@ -67,7 +67,7 @@
             ...mapGetters(['spotify']),
         },
         methods: {
-            ...mapActions(['togglePlayer', 'next', 'prev', 'disconnectSpotifyPlayer', 'seek', 'minimisePlayer']),
+            ...mapActions(['togglePlayer', 'next', 'prev', 'disconnectSpotifyPlayer', 'seek', 'minimizePlayer']),
             minutes(val) {
                 return config.msToMin(val);
             },
@@ -110,7 +110,7 @@
     font-size: 18px;
   }
 
-  input {
+  .playingPos {
     -webkit-appearance: none; /* Override default CSS styles */
     appearance: none;
     width: 100%; /* Full-width */
@@ -123,7 +123,7 @@
     overflow: hidden;
   }
 
-  input::-webkit-slider-thumb {
+  .playingPos::-webkit-slider-thumb {
 
     -webkit-appearance: none; /* Override default look */
     appearance: none;
@@ -135,7 +135,7 @@
     cursor: pointer; /* Cursor on hover */
   }
 
-  input::-moz-range-thumb {
+  .playingPos::-moz-range-thumb {
     border-radius: 5px;
     width: 10px; /* Set a specific slider handle width */
     height: 10px; /* Slider handle height */

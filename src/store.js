@@ -2,7 +2,8 @@ import Vue from 'vue'
 import Vuex from 'vuex'
 import Spotify from 'spotify-web-api-js'
 import {requestAccessToken as getSpotifyAT} from '@/spotify'
-import {loadSpotifyPlayerSDK} from "./spotify";
+import {loadSpotifyPlayerSDK} from "./spotify"
+import config from '@/settings'
 
 Vue.use(Vuex);
 
@@ -37,7 +38,7 @@ export default new Vuex.Store({
       state.spotify.setAccessToken(token);
       localStorage.setItem('spotify_token', token);
     },
-    setSpotifyPlayer: (state, name = 'Fourier Audio') => state.spotifyPlayer = new window.Spotify.Player({
+    setSpotifyPlayer: (state, name = config.name) => state.spotifyPlayer = new window.Spotify.Player({
       name,
       getOAuthToken: f => f(state.spotify.getAccessToken())
     }),
@@ -91,7 +92,7 @@ export default new Vuex.Store({
     next: ({state: {spotifyPlayer: p}}) => p.nextTrack(),
     prev: ({state: {spotifyPlayer: p}}) => p.previousTrack(),
     seek: ({state: {spotifyPlayer: p}}, position_ms) => p.seek(position_ms),
-    minimisePlayer: () => {
+    minimizePlayer: () => {
       var test = document.getElementsByClassName("now-playing");
       test[0].style.display = "none";
     },

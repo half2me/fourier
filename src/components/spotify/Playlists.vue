@@ -15,7 +15,6 @@
 
 <script>
   import {mapGetters} from 'vuex'
-  import AddToAppleMusic from '@/components/apple-music/AddToAppleMusic'
 
   export default {
     name: 'Playlists',
@@ -59,16 +58,6 @@
       }
     },
     methods: {
-      addToAppleMusic(playlist) {
-        this.$modal.open({
-          parent: this,
-          component: AddToAppleMusic,
-          props: {
-            playlist,
-          },
-          hasModalCard: true
-        })
-      },
     },
   }
 </script>
