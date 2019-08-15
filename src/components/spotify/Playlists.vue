@@ -96,7 +96,6 @@ export default {
     },
     selectedPlaylist: {
       get() {
-        console.log(this.selected);
         return this.selected;
       },
       set(val) {
