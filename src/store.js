@@ -55,7 +55,7 @@ export default new Vuex.Store({
   actions: {
     pollSpotifyPosition: async ({commit, dispatch, state}) => {
       if (state.spotifyPlayer && !state.spotifyPaused) {
-        const {position} = await state.spotifyPlayer.getCurrentState();
+        const position = (await state.spotify.getMyCurrentPlaybackState()).progress_ms;
         commit('setPosition', position);
         window.setTimeout(() => {
           dispatch('pollSpotifyPosition');
@@ -79,6 +79,51 @@ export default new Vuex.Store({
         }
       });
       return p.connect();
+    },
+    changeSong: async ({commit, dispatch, uri, state: {spotify, currentTrack, spotifyPaused, spotifyPlayer}}) =>  {
+      let currentState = (await spotify.getMyCurrentPlaybackState());
+
+      if (currentState.is_playing && currentState.device.name !== config.name) {
+        commit('setSpotifyPlayer');
+        commit('setCurrentTrack', currentState.item);
+        commit('setPosition', currentState.progress_ms);
+        await dispatch('pollSpotifyPosition');
+      }
+
+      let id = '';
+      const test = (await spotify.getMyDevices());
+      for(let i=0; i < test.devices.length; i++) {
+        if (test.devices[i].is_active) {
+          id = '';
+          break;
+        }
+        if (test.devices[i].name === config.name) {
+          id = test.devices[i].id;
+        }
+      }
+      if((!spotifyPaused && currentTrack.uri !== uri) || currentTrack.uri !== uri) {
+        if(id !== '') {
+          await spotify.play({device_id: id, uris: [uri]});
+          /*
+          if (this.context) {
+            await spotify.play({device_id: id, context_uri: this.context?.uri, offset: {uri: uri}})
+          } else {
+          }
+          */
+        } else {
+          await spotify.play({uris: [uri]});
+          /*
+          if (this.context) {
+            await spotify.play({context_uri: this.context?.uri, offset: {uri: uri}})
+          } else {
+          }
+
+          */
+        }
+      } else  {
+        await spotifyPlayer.togglePlay();
+      }
+
     },
   },
 })

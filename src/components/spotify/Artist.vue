@@ -1,19 +1,17 @@
 <template lang="pug">
   .tracks
-    b-table(:data="shownTracks" narrowed selectable :selected.sync="selectedTrack" :loading="$asyncComputed.tracks.updating")
+    b-table(:data="tracks.tracks" narrowed selectable :selected.sync="selectedTrack" :loading="$asyncComputed.tracks.updating")
       template(slot-scope="{row}")
         b-table-column(:width="20")
           b-tooltip.is-slow(:label="row.saved ? 'Remove from my Library' : 'Add to my Library'" animated size="is-small")
             a(@click.prevent="toggleSaved(row)")
               b-icon(:pack="row.saved ? 'fas' : 'far'" icon="heart" size="is-small")
-        b-table-column(field="track.name" label="TITLE")
-          a {{ row.track.name }}
-        b-table-column(field="track.name" label="ARTIST")
-          a {{ row.track.artists[0].name }}
-        b-table-column(field="track.name" label="ALBUM")
-          a {{ row.track.album.name }}
-        b-table-column(field="track.name" label="DURATION")
-          a {{ row.track.duration_ms | formatMs }}
+        b-table-column(field="name" label="TITLE")
+          a {{ row.name }}
+        b-table-column(field="popularity" label="POPULARITY")
+          a {{ row.popularity }}
+        b-table-column(field="name" label="DURATION")
+          a {{ row.duration_ms | formatMs }}
 </template>
 
 <script>
@@ -42,15 +40,16 @@ export default {
   data() {
     return {
       search: '',
+      artistId: this.$route.params.id,
     }
   },
   asyncComputed: {
     tracks: {
       get() {
-        if (this.playlist?.id) {
-          return this.spotify.getPlaylistTracks(this.playlist.id, {limit: 50}).then(r => r.items)
+        if (this.artistId) {
+          return this.spotify.getArtistTopTracks(this.artistId, 'GB')
         } else {
-          return this.spotify.getMySavedTracks({limit:50}).then(r => r.items);
+          return this.spotify.getMySavedTracks().then(r => r.items);
         }
       },
       default: [],

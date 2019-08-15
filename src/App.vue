@@ -1,15 +1,6 @@
 <template lang="pug">
   #app
-    .page-container
-      nav.navbar.is-primary(aria-label='main-navigation')
-        router-link(:to="{name: 'home'}" :class="{'is-active': $route.name === 'home'}")
-          img.logo(src="./assets/logo-grey.svg")
-        .navbar-brand
-          router-link(:to="{name: 'home'}" :class="{'is-active': $route.name === 'home'}").navbar-item.home
-            b-icon(icon="home")
-          router-link(:to="{name: 'spotify'}" :class="{'is-active': $route.name === 'spotify'}").navbar-item.spotify
-            b-icon(pack="fab" icon="spotify")
-      router-view
+    router-view
     footer.footer
       .socials
         a(target="_blank" :href="config.fb")
@@ -44,24 +35,14 @@ export default {
   @import "~bulma";
   @import "~buefy/src/scss/buefy";
 
-  #app, .columns, .column, .playlists, .tracks {
-    height: 100%;
-  }
-
-</style>
-<style lang="scss" scoped>
-
-  #app {
-    position: relative;
-    min-height: 100vh;
-  }
 
   .page-container {
-    padding-bottom: 100px;
+
+    padding-bottom: 150px;
+    color: white;
   }
   nav {
     height: 50px;
-    background-color: #1DB954;
   }
 
   nav img {
@@ -69,6 +50,11 @@ export default {
     margin-top: 2px;
     margin-left: 10px;
     top: 50%;
+  }
+
+  .navbar {
+    background-color: #fff!important;
+    border-bottom: 1px solid #f1f1f1;
   }
 
   .navbar-brand {
@@ -79,21 +65,54 @@ export default {
   }
 
   .navbar-brand a {
-    color: #fff;
+    color: $red;
   }
 
-  .is-active {
-    color: $spotify-invert !important;
+  .navbar-brand a:active {
+    color: $black;
   }
+
+  a {
+    color: $white;
+  }
+
+  #app, .column {
+    height: 100%;
+  }
+  .table, .table thead th {
+    background-color: #525252!important;
+    color: white;
+  }
+
+</style>
+<style lang="scss" scoped>
 
   footer {
     position: absolute;
+    background-color: #333333;
+    color: #fff;
     bottom: 0;
     height: 100px;
     text-align: center;
     width: 100%;
   }
+
+  footer a:hover {
+    color: $red;
+  }
+
+  #app {
+    position: relative;
+    min-height: 100vh;
+  }
+
+
+  .is-active {
+    color: $spotify-grey !important;
+  }
+
   .top {
     height: 10%;
   }
+
 </style>

@@ -1,34 +1,48 @@
 <template lang="pug">
   .playlists
     .columns.is-multiline
-      .column.is-2(v-for="playlist in shownPlaylists")
+      .column.is-2(v-for="artist in shownArtists.artists.items")
         .playlist-img
-          router-link(:to="{name: 'playlist', params: {id: playlist.id}}")
-            img(:src="playlist.images[0].url")
+          router-link(:to="{name: 'artist', params: {id: artist.id}}")
+            img(:src="artist.images[0].url")
             .info-surround
               .playlist-info
                 .columns
-                  .column.is-4
+                  .column.is-9
                     p
-                      b-icon(icon="compact-disc" size="is-small")
-                      b  {{ playlist.tracks.total }}
-                  .column.is-8.right
-                    p
-                      b-icon(icon="user" size="is-small")
-                      b  {{ playlist.owner.display_name }}
+                      b-icon(icon="user-plus" size="is-small")
+                      b  {{ artist.followers.total.toLocaleString() }}
         .columns
-          .column
+          .column.is-10
             p
-              b {{playlist.name}}
+              b {{artist.name}}
         .columns.playlist-info
           .column.is-5
 </template>
 
 <style lang="scss" scoped>
+  :root{
+    --size: 100px;
+  }
   .playlists {
+    height: 100vh;
+    overflow: scroll;
     padding: 1rem;
     color: #fff;
-    text-align: center;
+  }
+
+  .box{
+    position: relative;
+    width: 100px;       /* desired width */
+  }
+  .box:before{
+    content: "";
+    display: block;
+    padding-top: 100%;  /* ratio of 1:1*/
+  }
+
+  .playlist-img {
+
   }
 
   .info-surround {
@@ -63,7 +77,7 @@
 import {mapGetters} from 'vuex'
 
 export default {
-  name: 'Playlists',
+  name: 'Artists',
   model: {
     prop: 'selected',
     event: 'change',
@@ -80,23 +94,20 @@ export default {
     }
   },
   asyncComputed: {
-    playlists: {
+    artists: {
       get() {
-        return this.spotify.getUserPlaylists().then(r => r.items);
+        return this.spotify.getFollowedArtists();
       },
       default: [],
     },
   },
   computed: {
     ...mapGetters(['spotify']),
-    shownPlaylists() {
-      return this.playlists.filter(
-        p => p.name.toLowerCase().includes(this.search.toLowerCase())
-      )
+    shownArtists() {
+      return this.artists;
     },
-    selectedPlaylist: {
+    selectedArtist: {
       get() {
-        console.log(this.selected);
         return this.selected;
       },
       set(val) {
