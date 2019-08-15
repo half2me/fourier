@@ -15,12 +15,10 @@ import Tracks from '@/components/spotify/Tracks'
 import InfoPanel from '@/components/spotify/InfoPanel'
 import {mapActions, mapGetters, mapState} from 'vuex'
 import {requestAccessToken} from '@/spotify'
-import NowPlaying from '@/components/spotify/NowPlaying';
 
 export default {
   name: 'Spotify',
   components: {
-    NowPlaying,
     Playlists, Tracks, InfoPanel,
   },
   data() {
