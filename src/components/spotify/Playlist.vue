@@ -8,11 +8,11 @@
               b-icon(:pack="row.saved ? 'fas' : 'far'" icon="heart" size="is-small")
         b-table-column(field="track.name" label="TITLE")
           a {{ row.track.name }}
-        b-table-column(field="track.name" label="ARTIST")
+        b-table-column(field="track.artist" label="ARTIST")
           a {{ row.track.artists[0].name }}
-        b-table-column(field="track.name" label="ALBUM")
+        b-table-column(field="track.album" label="ALBUM")
           a {{ row.track.album.name }}
-        b-table-column(field="track.name" label="DURATION")
+        b-table-column(field="track.album" label="DURATION")
           a {{ row.track.duration_ms | formatMs }}
 </template>
 
@@ -42,15 +42,16 @@ export default {
   data() {
     return {
       search: '',
+      playlistId: this.$route.params.id,
     }
   },
   asyncComputed: {
     tracks: {
       get() {
-        if (this.playlist?.id) {
-          return this.spotify.getPlaylistTracks(this.playlist.id, {limit: 50}).then(r => r.items)
+        if (this.playlistId) {
+          return this.spotify.getPlaylistTracks(this.playlistId, {limit: 50}).then(r => r.items)
         } else {
-          return this.spotify.getMySavedTracks({limit:50}).then(r => r.items);
+          return this.spotify.getMySavedTracks().then(r => r.items);
         }
       },
       default: [],

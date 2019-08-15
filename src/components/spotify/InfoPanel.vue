@@ -19,7 +19,7 @@
 </template>
 
 <script>
-import {mapActions, mapGetters, mapState} from 'vuex'
+import {mapActions, mapGetters, mapMutations, mapState} from 'vuex'
 import settings from '@/settings'
 import {formatMs} from '@/filters';
 
@@ -51,18 +51,43 @@ export default {
     },
   },
   methods: {
-    ...mapActions(['togglePlayer']),
-    async changeSong(uri) {
-      if((!this.spotifyPaused && this.currentTrack.uri !== uri) || this.currentTrack.uri !== uri) {
-        if (this.context) {
-          await this.spotify.play({context_uri: this.context?.uri, offset: {uri: uri}})
-        } else {
-          await this.spotify.play({uris: [uri]})
+    ...mapMutations(['setCurrentTrack']),
+    ...mapActions(['togglePlayer', 'player', 'changeSong']),
+    //async changeSong({commit, uri}) {
+
+
+    /*
+      let id = '';
+      const test = (await this.spotify.getMyDevices());
+
+      for(let i=0; i < test.devices.length; i++) {
+        if (test.devices[i].is_active) {
+          id = '';
+          break;
         }
-      } else {
+        if (test.devices[i].name === settings.name) {
+          id = test.devices[i].id;
+        }
+      }
+      if((!this.spotifyPaused && this.currentTrack.uri !== uri) || this.currentTrack.uri !== uri) {
+        if(id !== '') {
+          if (this.context) {
+            await this.spotify.play({device_id: id, context_uri: this.context?.uri, offset: {uri: uri}})
+          } else {
+            await this.spotify.play({device_id: id, uris: [uri]})
+          }
+        } else {
+          if (this.context) {
+            await this.spotify.play({context_uri: this.context?.uri, offset: {uri: uri}})
+          } else {
+            await this.spotify.play({uris: [uri]})
+          }
+        }
+      } else  {
         await this.spotifyPlayer.togglePlay();
       }
-    },
+      */
+    //},
   },
 }
 </script>

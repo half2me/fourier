@@ -1,19 +1,19 @@
 <template lang="pug">
   .tracks
-    b-table(:data="shownTracks" narrowed selectable :selected.sync="selectedTrack" :loading="$asyncComputed.tracks.updating")
+    b-table(:data="tracks.items" narrowed selectable :selected.sync="selectedTrack" :loading="$asyncComputed.tracks.updating")
       template(slot-scope="{row}")
-        b-table-column(:width="20")
+        b-table-column(:width="20" label="#")
+          p {{row.track_number}}
+        b-table-column(:width="20" label="")
           b-tooltip.is-slow(:label="row.saved ? 'Remove from my Library' : 'Add to my Library'" animated size="is-small")
             a(@click.prevent="toggleSaved(row)")
               b-icon(:pack="row.saved ? 'fas' : 'far'" icon="heart" size="is-small")
-        b-table-column(field="track.name" label="TITLE")
-          a {{ row.track.name }}
-        b-table-column(field="track.name" label="ARTIST")
-          a {{ row.track.artists[0].name }}
-        b-table-column(field="track.name" label="ALBUM")
-          a {{ row.track.album.name }}
-        b-table-column(field="track.name" label="DURATION")
-          a {{ row.track.duration_ms | formatMs }}
+        b-table-column(field="name" label="TITLE")
+          a {{ row.name }}
+        b-table-column(field="explicit" label=" ")
+          b-tag(v-if="row.explicit" type="is-red") Explicit
+        b-table-column(field="duration" label="DURATION")
+          p {{ row.duration_ms | formatMs }}
 </template>
 
 <script>
@@ -21,7 +21,7 @@ import {mapGetters} from 'vuex'
 import {formatMs} from '@/filters';
 
 export default {
-  name: 'Tracks',
+  name: 'Album',
   filters: {
     formatMs,
   },
@@ -42,15 +42,16 @@ export default {
   data() {
     return {
       search: '',
+      albumId: this.$route.params.id,
     }
   },
   asyncComputed: {
     tracks: {
       get() {
-        if (this.playlist?.id) {
-          return this.spotify.getPlaylistTracks(this.playlist.id, {limit: 50}).then(r => r.items)
+        if (this.albumId) {
+          return this.spotify.getAlbumTracks(this.albumId, {limit: 50});
         } else {
-          return this.spotify.getMySavedTracks({limit:50}).then(r => r.items);
+          return this.spotify.getMySavedTracks().then(r => r.items);
         }
       },
       default: [],

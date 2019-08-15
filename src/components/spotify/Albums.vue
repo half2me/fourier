@@ -1,34 +1,35 @@
 <template lang="pug">
   .playlists
     .columns.is-multiline
-      .column.is-2(v-for="playlist in shownPlaylists")
+      .column.is-2(v-for="album in shownAlbums")
         .playlist-img
-          router-link(:to="{name: 'playlist', params: {id: playlist.id}}")
-            img(:src="playlist.images[0].url")
+          router-link(:to="{name: 'album', params: {id: album.album.id}}")
+            img(:src="album.album.images[0].url")
             .info-surround
               .playlist-info
                 .columns
                   .column.is-4
                     p
                       b-icon(icon="compact-disc" size="is-small")
-                      b  {{ playlist.tracks.total }}
+                      b  {{ album.album.tracks.total }}
                   .column.is-8.right
                     p
                       b-icon(icon="user" size="is-small")
-                      b  {{ playlist.owner.display_name }}
+                      b  {{ album.album.artists[0].name }}
         .columns
-          .column
-            p
-              b {{playlist.name}}
+          .column.is-10
+            p.playlist-name
+              b {{album.album.name}}
         .columns.playlist-info
           .column.is-5
 </template>
 
 <style lang="scss" scoped>
   .playlists {
+    height: 100vh;
+    overflow: scroll;
     padding: 1rem;
     color: #fff;
-    text-align: center;
   }
 
   .info-surround {
@@ -63,7 +64,7 @@
 import {mapGetters} from 'vuex'
 
 export default {
-  name: 'Playlists',
+  name: 'Albums',
   model: {
     prop: 'selected',
     event: 'change',
@@ -80,21 +81,19 @@ export default {
     }
   },
   asyncComputed: {
-    playlists: {
+    albums: {
       get() {
-        return this.spotify.getUserPlaylists().then(r => r.items);
+        return this.spotify.getMySavedAlbums().then(r => r.items);
       },
       default: [],
     },
   },
   computed: {
     ...mapGetters(['spotify']),
-    shownPlaylists() {
-      return this.playlists.filter(
-        p => p.name.toLowerCase().includes(this.search.toLowerCase())
-      )
+    shownAlbums() {
+      return this.albums;
     },
-    selectedPlaylist: {
+    selectedAlbum: {
       get() {
         return this.selected;
       },
