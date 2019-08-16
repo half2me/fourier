@@ -70,10 +70,6 @@
         h1 CONTACT US
         br
         .columns
-          .column.is-6
-            p
-          .column.is-6
-            p
 
 </template>
 

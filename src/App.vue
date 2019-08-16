@@ -7,6 +7,8 @@
           b-icon(pack="fab" icon="facebook-square")
         a(target="_blank" :href="config.twitter")
           b-icon(pack="fab" icon="twitter-square")
+
+      a(target="_blank" href="mailto:info@fourieraudio.co.uk") info@fourieraudio.co.uk
       p &copy; 2019 Fourier Audio. All rights reserved
 </template>
 
