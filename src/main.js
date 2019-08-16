@@ -6,11 +6,16 @@ import Buefy from 'buefy'
 import AsyncComputed from 'vue-async-computed'
 import '@fortawesome/fontawesome-free/css/all.css'
 import '@mdi/font/css/materialdesignicons.css'
+import BackToTop from 'vue-backtotop'
+
+var VueScrollTo = require('vue-scrollto');
 
 Vue.use(AsyncComputed);
 Vue.use(Buefy, {
   defaultIconPack: 'fas',
 });
+Vue.use(VueScrollTo);
+Vue.use(BackToTop);
 
 Vue.config.productionTip = false;
 

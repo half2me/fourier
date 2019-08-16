@@ -1,5 +1,8 @@
 <template lang="pug">
   .page-container
+    back-to-top
+      button(type="button").btn-to-top
+        b-icon(icon="chevron-up")
     nav.navbar(aria-label='main-navigation')
       router-link(:to="{name: 'home'}" :class="{'is-active': $route.name === 'home'}")
         img.logo(src="@/assets/logo-red.svg")
@@ -14,15 +17,15 @@
             br
             h2 Experience it
             br
-            router-link(:to="{name: 'playlists'}" tag="button").button Let's do this
+            router-link(:to="{name: 'playlists'}").button Let's do this
             br
             br
-            a(@click="scrollMeTo('go')").go
+            a(v-scroll-to="'#go'" href="#").go
               p Learn more
               b-icon(icon="chevron-down" size="is-small")
         .column.is-5
-          router-link(:to="{name: 'playlists'}").go
-            img(src="@/assets/screenshot.png").top-padding
+          router-link(:to="{name: 'playlists'}")
+            img(src="@/assets/screenshot.png").top-padding.glow
       .waveWrapper.waveAnimation
         .waveWrapperInner.bgTop
           .wave.waveTop(style="background-image: url('http://front-end-noobs.com/jecko/img/wave-top.png')")
@@ -32,7 +35,7 @@
           .wave.waveBottom(style="background-image: url('http://front-end-noobs.com/jecko/img/wave-bot.png')")
 
 
-      .second-child(ref="go")
+      .second-child#go
         h1 OVERVIEW
         br
         .columns
@@ -94,6 +97,21 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+  .btn-to-top {
+    background-color: #ca3e47;
+    color: white;
+    width: 50px;
+    border: none;
+    height: 50px;
+    border-radius: 50%;
+    font-size: 15px;
+    line-height: 15px;
+  }
+
+  .glow:hover {
+
+    box-shadow: 0 0 25px #fff;
+  }
   span p {
       font-size: 10px;
     color: #aaa;
@@ -121,7 +139,7 @@ export default {
   }
   .go:hover {
     color: #fff;
-    text-shadow: 0 2px 5px #ccc;
+    text-shadow: 0 0 5px #ccc;
   }
 
   .button {
