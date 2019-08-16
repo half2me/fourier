@@ -21,7 +21,8 @@
               p Learn more
               b-icon(icon="chevron-down" size="is-small")
         .column.is-5
-          img(src="@/assets/screenshot.png").top-padding
+          router-link(:to="{name: 'playlists'}").go
+            img(src="@/assets/screenshot.png").top-padding
       .waveWrapper.waveAnimation
         .waveWrapperInner.bgTop
           .wave.waveTop(style="background-image: url('http://front-end-noobs.com/jecko/img/wave-top.png')")
@@ -35,35 +36,44 @@
         h1 OVERVIEW
         br
         .columns
-          .column.is-4
+          .column.is-2.is-offset-3
             b-icon(pack="fab" icon="spotify" size="is-large" type="is-primary")
+            br
+            br
             h3 Seamless Spotify Integration
-            p Just sign in to Spotify and browse your library
-          .column.is-4
+            p With full Spotify integration, it's as simple as signing in and you're ready to start your experience!
+          .column.is-2
             b-icon(icon="money-bill-wave" size="is-large" type="is-primary")
-            h3 Free
-          .column.is-4
+            br
+            br
+            h3 Free To Use
+            p No accounts means no payments! Our audio analysis tool is completely free to use!
+            span
+              p Please note: A Spotify Premium account is required
+          .column.is-2
             b-icon(icon="chart-pie" size="is-large" type="is-primary")
-            h3 Visualisation Graphs
-            p View information about a track in a clean format
+            br
+            br
+            h3 Visualisation
+            p View all songs like you've never seen them before using our visualisation tools!
 
       .third-child
         h1 FEATURES
         br
         .columns
           .column.is-6
-            p Hello
+            p
           .column.is-6
-            p hELLO
+            p
 
       .fourth-child
         h1 CONTACT US
         br
         .columns
           .column.is-6
-            p Hello
+            p
           .column.is-6
-            p hELLO
+            p
 
 </template>
 
@@ -88,6 +98,10 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+  span p {
+      font-size: 10px;
+    color: #aaa;
+  }
 
   .third-child {
     background-color: #333333;

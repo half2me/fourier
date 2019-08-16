@@ -42,7 +42,7 @@
             p {{row.track.artists[0].name}}
             p.on-top {{row.track.album.name}}
           .column.is-1
-            a(href="#")
+            router-link(:to="{name: 'player', params: {trackId: row.track.id}}")
               b-icon(icon="play" size="is-small")
               span  Play Song
 </template>
@@ -77,7 +77,7 @@
 import {mapGetters} from 'vuex'
 import {formatMs} from '@/filters';
 import {formatHrs} from '@/filters';
-import {mapRouterParams} from "@halftome/vue-router-mapper";
+import {mapRouterParams} from '@halftome/vue-router-mapper';
 
 export default {
   name: 'Tracks',
@@ -141,7 +141,6 @@ export default {
     },
     totalLength() {
       let total = 0;
-      console.log(this.details.tracks.items[1].track);
       for (let i =0; i < this.details.tracks.items.length; i++) {
         total += parseInt(this.details.tracks.items[i].track.duration_ms)
       }

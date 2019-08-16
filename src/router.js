@@ -9,6 +9,7 @@ import Tracks from './components/spotify/Tracks';
 import Playlist from './components/spotify/Playlist';
 import Album from './components/spotify/Album';
 import Artist from './components/spotify/Artist';
+import Player from './components/spotify/Player';
 
 Vue.use(Router)
 
@@ -25,6 +26,11 @@ export default new Router({
       name: 'spotify',
       component: Spotify,
       children: [
+        {
+          path:'player/:trackId',
+          name: 'player',
+          component: Player,
+        },
         {
           path:'playlists',
           name:'playlists',
