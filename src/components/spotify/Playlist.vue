@@ -1,5 +1,22 @@
 <template lang="pug">
   .tracks
+    .columns.details
+      .column.is-3.is-offset-1
+        img(:src="this.details.images[0].url")
+      .column.is-7
+        p.on-top PLAYLIST
+        h1 {{this.details.name}}
+        p {{this.details.description}}
+        p.author Created by {{this.details.owner.display_name}}
+        br
+        b-taglist(attached=true)
+          b-tag
+            b-icon(icon="compact-disc")
+          b-tag(type="is-red") {{this.details.tracks.items.length}}
+        b-taglist(attached=true)
+          b-tag
+            b-icon(icon="clock")
+          b-tag(type="is-red") {{totalLength | formatHrs}}
     b-table(:data="shownTracks" narrowed selectable :selected.sync="selectedTrack" :loading="$asyncComputed.tracks.updating")
       template(slot-scope="{row}")
         b-table-column(:width="20")
@@ -13,17 +30,38 @@
         b-table-column(field="track.album" label="ALBUM")
           a {{ row.track.album.name }}
         b-table-column(field="track.album" label="DURATION")
+          template(slot="header" slot-scope="{column}")
+            b-icon(icon="clock")
           a {{ row.track.duration_ms | formatMs }}
 </template>
+
+<style lang="scss" scoped>
+  .details {
+    margin-top: 10px;
+  }
+
+  h1 {
+    font-family: 'Staatliches', sans-serif;
+    font-size: 3rem;
+  }
+
+  .on-top, .author {
+    color: #666;
+  }
+
+</style>
+
 
 <script>
 import {mapGetters} from 'vuex'
 import {formatMs} from '@/filters';
+import {formatHrs} from '@/filters';
 
 export default {
   name: 'Tracks',
   filters: {
     formatMs,
+    formatHrs,
   },
   model: {
     prop: 'selected',
@@ -56,6 +94,13 @@ export default {
       },
       default: [],
     },
+    details: {
+      get() {
+        if (this.playlistId) {
+          return this.spotify.getPlaylist(this.playlistId)
+        }
+      },
+    },
     tracksWithInfo: {
       get() {
         if (this.tracks.length > 0) {
@@ -78,6 +123,13 @@ export default {
                     t.track.album.name.toLowerCase().includes(this.search.toLowerCase()) ||
                     t.track.artists.some(a => a.name.toLowerCase().includes(this.search.toLowerCase()))
       )
+    },
+    totalLength() {
+      let total = 0;
+      for (let i =0; i < this.details.tracks.items.length; i++) {
+        total += parseInt(this.details.tracks.items[i].track.duration_ms)
+      }
+      return total;
     },
     selectedTrack: {
       get() {

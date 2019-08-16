@@ -80,8 +80,13 @@ export default {
     height: 100%;
   }
   .table, .table thead th {
-    background-color: #525252!important;
     color: white;
+    background-color: rgba(0,0,0,0);
+  }
+
+  .table td {
+
+    border-bottom: rgba(255,255,255,0.2) solid 1px;
   }
 
 </style>

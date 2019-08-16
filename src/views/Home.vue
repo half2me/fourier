@@ -11,6 +11,11 @@
             img(src="@/assets/Spotify_Logo_CMYK_White.png" width="50%")
             br
             router-link(:to="{name: 'playlists'}" tag="button").button Let's do this
+            br
+            br
+            b-tooltip.is-slow(label="Learn More" animated)
+              b-button(@click="scrollMeTo('go')")
+                b-icon(icon="arrow-down")
 
       div.waveWrapper.waveAnimation
         div.waveWrapperInner.bgTop
@@ -20,7 +25,8 @@
         div.waveWrapperInner.bgBottom
           div.wave.waveBottom(style="background-image: url('http://front-end-noobs.com/jecko/img/wave-bot.png')")
 
-      div.second-child
+
+      div.second-child(ref="go")
         .columns
           .column.is-2.is-offset-3
             b-icon(pack="fab" icon="spotify" size="is-large" type="is-primary")
@@ -43,6 +49,14 @@ export default {
     return {
       config,
     }
+  },
+  methods: {
+    scrollMeTo(refName) {
+      var element = this.$refs[refName];
+      var top = element.offsetTop;
+
+      window.scrollTo(0, top);
+    },
   },
 }
 </script>

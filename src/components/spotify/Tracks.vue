@@ -1,6 +1,6 @@
 <template lang="pug">
   .tracks
-    b-table(:data="shownTracks" narrowed selectable :selected.sync="selectedTrack" :loading="$asyncComputed.tracks.updating")
+    b-table(:data="shownTracks" narrowed selectable :selected.sync="selectedTrack")
       template(slot-scope="{row}")
         b-table-column(:width="20")
           b-tooltip.is-slow(:label="row.saved ? 'Remove from my Library' : 'Add to my Library'" animated size="is-small")
