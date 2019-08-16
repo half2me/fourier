@@ -3,7 +3,7 @@
     .columns.is-multiline
       .column.is-2(v-for="playlist in shownPlaylists")
         .playlist-img
-          router-link(:to="{name: 'playlist', params: {id: playlist.id}}")
+          router-link(:to="{name: 'playlist', params: {playlistId: playlist.id}}")
             img(:src="playlist.images[0].url")
             .info-surround
               .playlist-info

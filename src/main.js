@@ -5,6 +5,7 @@ import router from './router'
 import Buefy from 'buefy'
 import AsyncComputed from 'vue-async-computed'
 import '@fortawesome/fontawesome-free/css/all.css'
+import '@mdi/font/css/materialdesignicons.css'
 
 Vue.use(AsyncComputed);
 Vue.use(Buefy, {

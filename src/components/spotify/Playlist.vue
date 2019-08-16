@@ -17,7 +17,7 @@
           b-tag
             b-icon(icon="clock")
           b-tag(type="is-red") {{totalLength | formatHrs}}
-    b-table(:data="shownTracks" narrowed selectable :selected.sync="selectedTrack" :loading="$asyncComputed.tracks.updating")
+    b-table(:data="shownTracks" narrowed selectable :selected.sync="selectedTrack" detailed :loading="$asyncComputed.tracks.updating")
       template(slot-scope="{row}")
         b-table-column(:width="20")
           b-tooltip.is-slow(:label="row.saved ? 'Remove from my Library' : 'Add to my Library'" animated size="is-small")
@@ -33,6 +33,18 @@
           template(slot="header" slot-scope="{column}")
             b-icon(icon="clock")
           a {{ row.track.duration_ms | formatMs }}
+      template(slot="detail" slot-scope="{row}")
+        .columns
+          .column.is-1
+            img(:src="row.track.album.images[0].url")
+          .column.is-10
+            h2 {{row.track.name}}
+            p {{row.track.artists[0].name}}
+            p.on-top {{row.track.album.name}}
+          .column.is-1
+            a(href="#")
+              b-icon(icon="play" size="is-small")
+              span  Play Song
 </template>
 
 <style lang="scss" scoped>
@@ -40,15 +52,24 @@
     margin-top: 10px;
   }
 
+  .table tr.detail, tr.detail {
+    background: rgba(0,0,0,0)!important;
+    border: none!important;
+  }
+
+
   h1 {
     font-family: 'Staatliches', sans-serif;
     font-size: 3rem;
+  }
+  h2 {
+    font-family: 'Staatliches', sans-serif;
+    font-size: 2rem;
   }
 
   .on-top, .author {
     color: #666;
   }
-
 </style>
 
 
@@ -56,6 +77,7 @@
 import {mapGetters} from 'vuex'
 import {formatMs} from '@/filters';
 import {formatHrs} from '@/filters';
+import {mapRouterParams} from "@halftome/vue-router-mapper";
 
 export default {
   name: 'Tracks',
@@ -68,19 +90,11 @@ export default {
     event: 'change',
   },
   props: {
-    playlist: {
-      type: Object,
-      default: () => null,
-    },
-    selected: {
-      type: Object,
-      default: () => null,
-    },
   },
   data() {
     return {
       search: '',
-      playlistId: this.$route.params.id,
+      selectedTrack: null,
     }
   },
   asyncComputed: {
@@ -116,6 +130,7 @@ export default {
     },
   },
   computed: {
+    ...mapRouterParams(['playlistId']),
     ...mapGetters(['spotify']),
     shownTracks() {
       return this.tracksWithInfo.filter(t =>
@@ -126,18 +141,11 @@ export default {
     },
     totalLength() {
       let total = 0;
+      console.log(this.details.tracks.items[1].track);
       for (let i =0; i < this.details.tracks.items.length; i++) {
         total += parseInt(this.details.tracks.items[i].track.duration_ms)
       }
       return total;
-    },
-    selectedTrack: {
-      get() {
-        return this.selected
-      },
-      set(val) {
-        this.$emit('change', val)
-      },
     },
   },
   methods: {

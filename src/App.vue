@@ -37,7 +37,6 @@ export default {
 
 
   .page-container {
-
     padding-bottom: 150px;
     color: white;
   }
