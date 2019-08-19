@@ -156,17 +156,19 @@ export default {
       const limit = 50;
       const offset = this.tracks.length;
       const {items: tracks} = await this.spotify.getPlaylistTracks(this.playlistId, {offset, limit});
-      const featuresPromise = this.spotify.getAudioFeaturesForTracks(tracks.map(({track}) => track.id)).then(({audio_features: features}) => {
-        for (let i = 0; i < tracks.length; i++) {
-          tracks[i].analysis = features[i];
-        }
-      });
-      const inMyLibraryPromise = this.spotify.containsMySavedTracks(tracks.map(({track}) => track.id)).then(r => r.forEach((saved, idx) => tracks[idx].saved = saved));
+      if (tracks.length > 0) {
+        const featuresPromise = this.spotify.getAudioFeaturesForTracks(tracks.map(({track}) => track.id)).then(({audio_features: features}) => {
+          for (let i = 0; i < tracks.length; i++) {
+            tracks[i].analysis = features[i];
+          }
+        });
+        const inMyLibraryPromise = this.spotify.containsMySavedTracks(tracks.map(({track}) => track.id)).then(r => r.forEach((saved, idx) => tracks[idx].saved = saved));
+        await Promise.all([featuresPromise, inMyLibraryPromise]);
 
-      await Promise.all([featuresPromise, inMyLibraryPromise]);
-
-      this.tracks.push(...tracks);
-      return ! (tracks.length < limit);
+        this.tracks.push(...tracks);
+        return ! (tracks.length < limit);
+      }
+      return false;
     },
     async toggleSaved(track) {
       if (track.saved) {
