@@ -7,6 +7,8 @@
           b-icon(pack="fab" icon="facebook-square")
         a(target="_blank" :href="config.twitter")
           b-icon(pack="fab" icon="twitter-square")
+
+      a(target="_blank" href="mailto:info@fourieraudio.co.uk") info@fourieraudio.co.uk
       p &copy; 2019 Fourier Audio. All rights reserved
 </template>
 
@@ -36,8 +38,23 @@ export default {
   @import "~buefy/src/scss/buefy";
 
 
-  .page-container {
+  .b-table .table tr.detail, .table tr.detail, tr.detail {
+    background: rgba(0,0,0,0)!important;
+    border: none!important;
+  }
+  .tabs ul {
+    border-bottom: none!important;
+  }
 
+
+  .apexcharts-datalabel-value {
+    fill: white!important;
+    font-family: 'Staatliches', sans-serif!important;
+    font-size: 2rem!important;
+  }
+
+
+  .page-container {
     padding-bottom: 150px;
     color: white;
   }

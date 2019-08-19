@@ -28,7 +28,6 @@ export const requestAccessToken = () => {
     redirect_uri: window.location.origin + '/spotify/auth-callback',
     scope: scopes.join(' '),
     show_dialog: 'false',
-    //state: '',
   };
 
   const params = new URLSearchParams();

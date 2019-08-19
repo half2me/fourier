@@ -9,7 +9,7 @@ script:
 - npm run build
 - npm run lint
 after_success:
-  - firebase deploy --token $FIREBASE_TOKEN
+  - test $TRAVIS_BRANCH = "master" && firebase deploy --token $FIREBASE_TOKEN
 notifications:
   email: false
 

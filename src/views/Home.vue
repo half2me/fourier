@@ -1,44 +1,79 @@
 <template lang="pug">
   .page-container
+    back-to-top
+      button(type="button").btn-to-top
+        b-icon(icon="chevron-up")
     nav.navbar(aria-label='main-navigation')
       router-link(:to="{name: 'home'}" :class="{'is-active': $route.name === 'home'}")
         img.logo(src="@/assets/logo-red.svg")
     div
       .columns.top-child
-        .column.is-10
+        .column.is-5.is-offset-1
           .main-item
-            h1 Unleash the power of
-            img(src="@/assets/Spotify_Logo_CMYK_White.png" width="50%")
-            br
-            router-link(:to="{name: 'playlists'}" tag="button").button Let's do this
+            img(src="@/assets/logo-white.svg" width="15%")
             br
             br
-            b-tooltip.is-slow(label="Learn More" animated)
-              b-button(@click="scrollMeTo('go')")
-                b-icon(icon="arrow-down")
+            h1 Don't just listen to music
+            br
+            h2 Experience it
+            br
+            router-link(:to="{name: 'playlists'}").button Let's do this
+            br
+            br
+            a(v-scroll-to="'#go'" href="#").go
+              p Learn more
+              b-icon(icon="chevron-down" size="is-small")
+        .column.is-5
+          router-link(:to="{name: 'playlists'}")
+            img(src="@/assets/screenshot.png").top-padding.glow
+      .waveWrapper.waveAnimation
+        .waveWrapperInner.bgTop
+          .wave.waveTop(style="background-image: url('http://front-end-noobs.com/jecko/img/wave-top.png')")
+        .waveWrapperInner.bgMiddle
+          .wave.waveMiddle(style="background-image: url('http://front-end-noobs.com/jecko/img/wave-mid.png')")
+        .waveWrapperInner.bgBottom
+          .wave.waveBottom(style="background-image: url('http://front-end-noobs.com/jecko/img/wave-bot.png')")
 
-      div.waveWrapper.waveAnimation
-        div.waveWrapperInner.bgTop
-          div.wave.waveTop(style="background-image: url('http://front-end-noobs.com/jecko/img/wave-top.png')")
-        div.waveWrapperInner.bgMiddle
-          div.wave.waveMiddle(style="background-image: url('http://front-end-noobs.com/jecko/img/wave-mid.png')")
-        div.waveWrapperInner.bgBottom
-          div.wave.waveBottom(style="background-image: url('http://front-end-noobs.com/jecko/img/wave-bot.png')")
 
-
-      div.second-child(ref="go")
+      .second-child#go
+        h1 OVERVIEW
+        br
         .columns
           .column.is-2.is-offset-3
             b-icon(pack="fab" icon="spotify" size="is-large" type="is-primary")
-            h2 Seamless Spotify Integration
-            p Just sign in to Spotify and browse your library
+            br
+            br
+            h3 Seamless Spotify Integration
+            p With full Spotify integration, it's as simple as signing in and you're ready to start your experience!
           .column.is-2
             b-icon(icon="money-bill-wave" size="is-large" type="is-primary")
-            h2 Free
+            br
+            br
+            h3 Free To Use
+            p No accounts means no payments! Our audio analysis tool is completely free to use!
+            span
+              p Please note: A Spotify Premium account is required
           .column.is-2
             b-icon(icon="chart-pie" size="is-large" type="is-primary")
-            h2 Visualisation Graphs
-            p View information about a track in a clean format
+            br
+            br
+            h3 Visualisation
+            p View all songs like you've never seen them before using our visualisation tools!
+
+      .third-child
+        h1 FEATURES
+        br
+        .columns
+          .column.is-6
+            p
+          .column.is-6
+            p
+
+      .fourth-child
+        h1 CONTACT US
+        br
+        .columns
+
 </template>
 
 <script>
@@ -62,11 +97,56 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+  .btn-to-top {
+    background-color: #ca3e47;
+    color: white;
+    width: 50px;
+    border: none;
+    height: 50px;
+    border-radius: 50%;
+    font-size: 15px;
+    line-height: 15px;
+  }
+
+  .glow:hover {
+
+    box-shadow: 0 0 25px #fff;
+  }
+  span p {
+      font-size: 10px;
+    color: #aaa;
+  }
+
+  .third-child {
+    background-color: #333333;
+    padding: 3rem 1.5rem 3rem;
+    text-align: center;
+  }
+  .fourth-child {
+    text-align: center;
+    color: #191414;
+    background-color: #fefefe;
+    padding: 3rem 1.5rem 3rem;
+  }
+
+  .top-padding {
+    top: 50vh;
+    transform: translateY(-30vh) rotate(4deg);
+    border-radius: 10px;
+    position: relative;
+    border: 3px solid white;
+    //transform: rotate(4deg);
+  }
+  .go:hover {
+    color: #fff;
+    text-shadow: 0 0 5px #ccc;
+  }
+
   .button {
     border: 1px solid $white;
     background: none;
     color: $white;
-    width: 15%;
+    width: 30%;
     font-family: 'Staatliches', sans-serif;
     font-size: 24px;
   }
@@ -76,20 +156,25 @@ export default {
   }
 
   .main-item {
-    position: absolute;
-    top: 50%;
-    transform: translateY(-50%);
+    position: relative;
+    top: 50vh;
+    transform: translateY(-30vh);
+    text-align: center;
   }
 
-  h1, h2 {
+  h2, h3 {
     font-family: 'Staatliches', sans-serif;
   }
 
-  .divider {
-    background-image: url('../../src/assets/divider.png');
-    height: 50px;
-    position: relative;
+  h2 {
+margin-top: -10%;
+    font-size: 5rem!important;
   }
+  h1 {
+    text-transform: uppercase;
+    font-size: 2rem!important;
+  }
+
 
   @keyframes move_wave {
     0% {
@@ -142,10 +227,8 @@ export default {
     background-size: 50% 100px;
   }
   .waveAnimation .waveTop {
-    animation: move-wave 3s;
-    -webkit-animation: move-wave 3s;
-    -webkit-animation-delay: 1s;
-    animation-delay: 1s;
+    animation: move_wave 20s linear infinite;
+    -webkit-animation: move_wave 20s linear infinite;
   }
   .waveMiddle {
     background-size: 50% 120px;
@@ -167,10 +250,6 @@ export default {
   }
 
 
-  h1 {
-    font-size: 32px!important;
-  }
-
   .mainCenter {
     width: 100%;
     text-align: center;
@@ -188,6 +267,7 @@ export default {
 
   .top-child {
     height: 100vh;
+    text-align: center;
     margin-bottom: -40px;
   }
 
