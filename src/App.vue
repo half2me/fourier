@@ -38,6 +38,22 @@ export default {
   @import "~buefy/src/scss/buefy";
 
 
+  .b-table .table tr.detail, .table tr.detail, tr.detail {
+    background: rgba(0,0,0,0)!important;
+    border: none!important;
+  }
+  .tabs ul {
+    border-bottom: none!important;
+  }
+
+
+  .apexcharts-datalabel-value {
+    fill: white!important;
+    font-family: 'Staatliches', sans-serif!important;
+    font-size: 2rem!important;
+  }
+
+
   .page-container {
     padding-bottom: 150px;
     color: white;

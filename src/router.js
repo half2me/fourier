@@ -10,6 +10,9 @@ import Playlist from './components/spotify/Playlist';
 import Album from './components/spotify/Album';
 import Artist from './components/spotify/Artist';
 import Player from './components/spotify/Player';
+import Default from './components/player/Default';
+import Analysis from './components/player/Analysis';
+import Features from './components/player/Features';
 
 Vue.use(Router)
 
@@ -30,6 +33,23 @@ export default new Router({
           path:'player/:trackId',
           name: 'player',
           component: Player,
+          children: [
+            {
+              path:'',
+              name: 'default',
+              component: Default,
+            },
+            {
+              path:'analysis',
+              name: 'analysis',
+              component: Analysis,
+            },
+            {
+              path:'features',
+              name: 'features',
+              component: Features,
+            },
+          ],
         },
         {
           path:'playlists',
