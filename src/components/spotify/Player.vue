@@ -58,7 +58,7 @@
           .column.is-3
             b-tooltip(animate type="is-primary" label="Speechiness")
               b-icon(icon="comment")
-            apexchart(type="radialBar" :options="chartOptions" series="[this.features.speechiness*100 | round]")
+            apexchart(type="radialBar" :options="chartOptions" :series="[this.features.speechiness*100 | round]")
           .column.is-3
             b-tooltip(animate type="is-primary" label="Acousticness")
               b-icon(icon="guitar")
@@ -87,7 +87,7 @@
 <script>
 import {mapGetters} from 'vuex'
 import {mapRouterParams} from '@halftome/vue-router-mapper';
-import {formatMs, floor, key, mode, round} from '@/filters';
+import {formatMs, floor, key, mode} from '@/filters';
 
 export default {
   name: 'Player',
@@ -96,7 +96,6 @@ export default {
     floor,
     key,
     mode,
-    round,
   },
   data() {
     return {

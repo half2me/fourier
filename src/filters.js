@@ -29,4 +29,7 @@ export const mode = val =>
   modeArr[val];
 
 export const round = val =>
-  val.toFixed(1);
+  Math.round(val);
+
+export const percent = val =>
+  (val*100).toFixed(1) + '%';

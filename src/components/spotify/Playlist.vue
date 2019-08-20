@@ -16,7 +16,7 @@
         b-taglist(attached=true)
           b-tag
             b-icon(icon="clock")
-          b-tag(type="is-red") {{totalLength | formatHrs}}
+          b-tag(type="is-red") {{totalLen | formatHrs}}
     b-table(:data="tracks" narrowed selectable :selected.sync="selectedTrack" detailed)
       template(slot-scope="{row}")
         b-table-column(:width="20")
@@ -24,19 +24,30 @@
             a(@click.prevent="toggleSaved(row)")
               b-icon(:pack="row.saved ? 'fas' : 'far'" icon="heart" size="is-small")
         b-table-column(field="track.name" label="TITLE")
-          a {{ row.track.name }}
+          p {{ row.track.name }}
         b-table-column(field="track.artist" label="ARTIST")
-          a {{ row.track.artists[0].name }}
+          p {{ row.track.artists[0].name }}
         b-table-column(field="track.album" label="ALBUM")
-          a {{ row.track.album.name }}
-        b-table-column(field="track.album" label="Dacneability")
+          p {{ row.track.album.name }}
+        b-table-column(field="analysis.danceability" label="Danceability")
           template(slot="header" slot-scope="{column}")
-            b-icon(icon="child")
-          a {{ row.analysis.danceability }}
+            b-tooltip(animated type="is-primary" label="Danceability")
+              b-icon(icon="child")
+          p {{ row.analysis.danceability | percent }}
+        b-table-column(field="analysis.tempo" label="Tempo")
+          template(slot="header" slot-scope="{column}")
+            b-tooltip(animated type="is-primary" label="Tempo")
+              b-icon(icon="music-note" pack="mdi")
+          p {{ row.analysis.tempo | round }}bpm
+        b-table-column(field="analysis.key" label="Key")
+          template(slot="header" slot-scope="{column}")
+            b-tooltip(animated type="is-primary" label="Key")
+              b-icon(icon="music-accidental-sharp" pack="mdi")
+          p {{ row.analysis.key | key }}
         b-table-column(field="track.album" label="DURATION")
           template(slot="header" slot-scope="{column}")
             b-icon(icon="clock")
-          a {{ row.track.duration_ms | formatMs }}
+          p {{ row.track.duration_ms | formatMs }}
       template(slot="detail" slot-scope="{row}")
         .columns.detailsHolder
           .column.is-1
@@ -79,15 +90,17 @@
 
 <script>
 import {mapGetters} from 'vuex'
-import {formatMs, formatHrs, round} from '@/filters';
+import {formatMs, formatHrs, percent, round, key} from '@/filters';
 import {mapRouterParams} from '@halftome/vue-router-mapper';
 
 export default {
   name: 'Tracks',
   filters: {
     formatMs,
-    round,
+    percent,
     formatHrs,
+    round,
+    key,
   },
   model: {
     prop: 'selected',
@@ -100,6 +113,7 @@ export default {
       search: '',
       selectedTrack: null,
       tracks: [],
+      totalLen: 0,
     }
   },
   asyncComputed: {
@@ -136,8 +150,8 @@ export default {
     },
     totalLength() {
       let total = 0;
-      for (let i =0; i < this.details.tracks.items.length; i++) {
-        total += parseInt(this.details.tracks.items[i].track.duration_ms)
+      for (let i =0; i < this.tracks.items.length; i++) {
+        total += parseInt(this.tracks.items[i].track.duration_ms)
       }
       return total;
     },
@@ -160,6 +174,7 @@ export default {
         const featuresPromise = this.spotify.getAudioFeaturesForTracks(tracks.map(({track}) => track.id)).then(({audio_features: features}) => {
           for (let i = 0; i < tracks.length; i++) {
             tracks[i].analysis = features[i];
+            this.totalLen += tracks[i].track.duration_ms;
           }
         });
         const inMyLibraryPromise = this.spotify.containsMySavedTracks(tracks.map(({track}) => track.id)).then(r => r.forEach((saved, idx) => tracks[idx].saved = saved));
