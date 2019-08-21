@@ -14,7 +14,7 @@
     "@angular/core": "^8.2.2",
     "@fortawesome/fontawesome-free": "^5.10.1",
     "@halftome/vue-router-mapper": "^1.0.1",
-    "@mdi/font": "^4.0.96",
+    "@mdi/font": "^4.1.95",
     "apexcharts": "^3.8.4",
     "axios": "^0.19.0",
     "buefy": "^0.8.2",
