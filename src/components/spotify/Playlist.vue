@@ -92,6 +92,8 @@
 import {mapGetters} from 'vuex'
 import {formatMs, formatHrs, percent, round, key} from '@/filters';
 import {mapRouterParams} from '@halftome/vue-router-mapper';
+import {infiniteHandler} from '../mixins/infiniteHandler';
+
 
 export default {
   name: 'Tracks',
@@ -102,6 +104,7 @@ export default {
     round,
     key,
   },
+  mixins: [infiniteHandler],
   model: {
     prop: 'selected',
     event: 'change',
@@ -157,15 +160,6 @@ export default {
     },
   },
   methods: {
-    infiniteHandler(s) {
-      this.pull().then((more) => {
-        if (more) {
-          s.loaded();
-        } else {
-          s.complete();
-        }
-      });
-    },
     async pull() {
       const limit = 50;
       const offset = this.tracks.length;

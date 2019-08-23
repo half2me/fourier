@@ -1,10 +1,10 @@
 <template lang="pug">
   .playlists
     .columns.is-multiline
-      .column.is-2(v-for="playlist in shownPlaylists")
+      .column.is-2(v-for="playlist in playlistsWithUrl")
         .playlist-img
           router-link(:to="{name: 'playlist', params: {playlistId: playlist.id}}")
-            img(:src="playlist.images[0].url")
+            img(:src="playlist.displayImageUrl")
             .info-surround
               .playlist-info
                 .columns
@@ -53,6 +53,10 @@
     margin-right: 10px;
   }
 
+  .imgPlay {
+    max-width: 300px;
+  }
+
   .playlist-img a:hover .info-surround {
     visibility: visible;
   }
@@ -94,6 +98,12 @@ export default {
         p => p.name.toLowerCase().includes(this.search.toLowerCase())
       )
     },
+    playlistsWithUrl() {
+      return this.shownPlaylists.map(p => ({
+        ...p,
+        displayImageUrl: p.images[p.images.length > 1 ? 1 : 0].url,
+      }));
+    },
     selectedPlaylist: {
       get() {
         return this.selected;
@@ -103,7 +113,6 @@ export default {
       },
     },
   },
-  methods: {
-  },
+  methods: {},
 }
 </script>
