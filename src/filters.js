@@ -33,3 +33,6 @@ export const round = val =>
 
 export const percent = val =>
   (val*100).toFixed(1) + '%';
+
+export const ts = val =>
+  val > 4 ? val + '/8' : val + '/4';

@@ -37,7 +37,10 @@ export default {
   @import "~bulma";
   @import "~buefy/src/scss/buefy";
 
-
+  .audio {
+    padding:0!important;
+    margin-top: 0!important;
+  }
   .b-table .table tr.detail, .table tr.detail, tr.detail {
     background: rgba(0,0,0,0)!important;
     border: none!important;

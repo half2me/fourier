@@ -31,8 +31,21 @@
             b-icon(icon="repeat-off" pack="mdi")
       b-tab-item(label="Audio Analysis")
         .columns
-          .column
-            p {{this.analysis.bars[0]}}
+          .column.audio
+            .section(v-for="section in analysis.sections" :style="{width: secLen }").audio
+        .columns.audio
+          .column.audio
+            .bars(v-for="bar in analysis.bars" :style="{width: barLen }").audio
+        .columns.audio
+          .column.audio
+            .beats(v-for="beat in analysis.beats" :style="{width: beaLen }").audio
+        .columns.audio
+          .column.audio
+            .segments(v-for="segment in analysis.segments" :style="{width: segLen }").audio
+        .columns.audio
+          .column.audio
+            .tatums(v-for="tatum in analysis.tatums" :style="{width: tatLen }").audio
+
       b-tab-item(label="Audio Features")
         .columns.is-multiline
           .column.is-3
@@ -80,14 +93,14 @@
             h2 {{this.features.tempo | floor}}bpm
           .column.is-3
             h1 Time Signature
-            h2 {{this.features.time_signature}}/4
+            h2 {{this.features.time_signature | ts}}
 </template>
 
 
 <script>
 import {mapGetters} from 'vuex'
 import {mapRouterParams} from '@halftome/vue-router-mapper';
-import {formatMs, floor, key, mode} from '@/filters';
+import {formatMs, floor, key, mode, ts} from '@/filters';
 
 export default {
   name: 'Player',
@@ -96,9 +109,15 @@ export default {
     floor,
     key,
     mode,
+    ts,
   },
   data() {
     return {
+      secLen: 0,
+      barLen: 0,
+      beaLen: 0,
+      segLen: 0,
+      tatLen: 0,
       chartOptions: {
         chart: {
           id: 'vuechart-example',
@@ -141,6 +160,20 @@ export default {
         }
       },
     },
+    variables: {
+      get() {
+        let sec = (100 / this.analysis.sections.length);
+        this.secLen = sec.toString().concat('%');
+        let bar = (100 / this.analysis.bars.length);
+        this.barLen = bar.toString().concat('%');
+        let bea = (100 / this.analysis.beats.length);
+        this.beaLen = bea.toString().concat('%');
+        let seg = (100 / this.analysis.segments.length);
+        this.segLen = seg.toString().concat('%');
+        let tat = (100 / this.analysis.tatums.length);
+        this.tatLen = tat.toString().concat('%');
+      },
+    },
   },
   computed: {
     ...mapRouterParams(['trackId']),
@@ -150,6 +183,25 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+
+
+  .section, .bars, .beats, .segments, .tatums {
+    height: 1rem;
+    position: relative;
+    padding: 0!important;
+    display: inline-block;
+  }
+
+  .section:nth-child(odd) { background-color: #ca3e47; }
+  .section:nth-child(even) { background-color: #1DB954; }
+  .bars:nth-child(odd) {background-color: #ca3e47;}
+  .bars:nth-child(even) {background-color: #1DB954;}
+  .beats:nth-child(odd) {background-color: #ca3e47;}
+  .beats:nth-child(even) {background-color: #1DB954;}
+  .segments:nth-child(odd) {background-color: #ca3e47;}
+  .segments:nth-child(even) {background-color: #1DB954;}
+  .tatums:nth-child(odd) {background-color: #ca3e47;}
+  .tatums:nth-child(even) {background-color: #1DB954;}
 
   .on-top, .author {
     color: #666;

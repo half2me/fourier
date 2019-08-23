@@ -167,7 +167,7 @@ export default {
   }
 
   h2 {
-margin-top: -10%;
+margin-top: -60px;
     font-size: 5rem!important;
   }
   h1 {

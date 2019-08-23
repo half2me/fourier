@@ -1,5 +1,5 @@
 <template lang="pug">
-  .tracks
+  .playlist
     .columns.details
       .column.is-3.is-offset-1
         img(:src="details.images[0].url")
